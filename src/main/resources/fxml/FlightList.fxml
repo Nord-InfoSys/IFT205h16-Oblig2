@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.norduni.oblig2.FlightListController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="menuFileExit" mnemonicParsing="false" onAction="#handleFileExitAction" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <TableView fx:id="flightTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn id="FlightNummer" prefWidth="75.0" text="Flightnr" />
+          <TableColumn id="Origin" prefWidth="75.0" text="Origin" />
+            <TableColumn id="Destination" prefWidth="75.0" text="Destination" />
+            <TableColumn id="DepartureTime" prefWidth="75.0" text="Departure Time" />
+            <TableColumn id="Duration" prefWidth="75.0" text="Duration" />
+            <TableColumn id="antallPlasser" prefWidth="75.0" text="Seats" />
+            <TableColumn id="AntallBooket" prefWidth="75.0" text="#Booked" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <buttons>
+            <Label fx:id="label" prefHeight="16.0" prefWidth="435.0" text="Label" />
+          <Button fx:id="clickMeButton" mnemonicParsing="false" onAction="#handleButtonAction" text="Gjør magi med listen" />
+            <Button fx:id="addFlightButton" mnemonicParsing="false" onAction="#handleAddFlightAction" text="Legg til flight" />
+        </buttons>
+      </ButtonBar>
+   </bottom>
+</BorderPane>

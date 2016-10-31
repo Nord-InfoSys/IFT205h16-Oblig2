@@ -1,0 +1,46 @@
+package no.norduni.oblig2;
+
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
+import javafx.stage.Stage;
+
+
+public class MainApp extends Application {
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/FlightList.fxml"));
+        
+        Scene scene = new Scene(root);
+        
+        scene.getStylesheets().add("/styles/Styles.css");
+        
+        stage.setTitle("AwsumBookum!");
+        stage.setScene(scene);
+
+//        MenuBar menuBar = null;
+//        
+//        final String os = System.getProperty ("os.name");
+//        if (os != null && os.startsWith ("Mac"))
+//          menuBar.useSystemMenuBarProperty().set(true);
+
+        stage.show();
+    }
+
+    /**
+     * The main() method is ignored in correctly deployed JavaFX application.
+     * main() serves only as fallback in case the application can not be
+     * launched through deployment artifacts, e.g., in IDEs with limited FX
+     * support. NetBeans ignores main().
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+}
