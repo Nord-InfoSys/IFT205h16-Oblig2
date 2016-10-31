@@ -8,6 +8,7 @@ package no.norduni.oblig2;
 import javafx.fxml.FXML ;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField ;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -27,13 +28,18 @@ public class FlightController {
     @FXML
     private Slider antallPlasser;
     
+    @FXML
+    void handleFlightNrChanged(InputMethodEvent event) {
+ //       this.flight.setFlightNummer(this.flightnr.getText());
+    }
+
     public Flight getFlight() {
         return flight;
     }
 
     public void setFlight(Flight flight) {
         this.flight = flight;
-        this.flightnr.setText(flight.getFlightNummer());
+        this.flight.flightNummerProperty().bindBidirectional(this.flightnr.textProperty() );
         this.flight.antallPlasserProperty().bindBidirectional(this.antallPlasser.valueProperty());
     }
     

@@ -6,72 +6,71 @@
 package no.norduni.oblig2;
 
 import java.time.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author mortenj
  */
 public class Flight {
-    String      flightNummer;
-    String      origin;
-    String      destination;
-    ZonedDateTime   departureTime;
-    Duration      duration;
-    SimpleIntegerProperty         antallPlasser;
-    List<Reisende>  reisende;
-    List<Gruppe>  grupper;
+    private SimpleStringProperty        flightNummer;
+    private SimpleStringProperty        origin;
+    private SimpleStringProperty        destination;
+    private ZonedDateTime               departureTime;
+    private Duration                    duration;
+    private SimpleIntegerProperty       antallPlasser;
+    private ObservableList<Reisende>    reisende;
+    private ObservableList<Gruppe>      grupper;
 
-    public Flight(String flightNumber, String origin, String destination, ZonedDateTime departureTime, Duration duration, Integer antallPlasser) {
-        this.flightNummer = flightNumber;
-        this.origin = origin;
-        this.destination = destination;
-        this.departureTime = departureTime;
+    public Flight() {
+        this.flightNummer = new SimpleStringProperty("");
+        this.origin = new SimpleStringProperty("");
+        this.destination = new SimpleStringProperty("");
+        this.departureTime = departureTime; // Simle Object Property
         this.duration = duration;
-        this.antallPlasser = new SimpleIntegerProperty(antallPlasser);
-        this.reisende = new ArrayList<Reisende>();
-        this.grupper = new ArrayList<Gruppe>();
-    }
-
-    public Flight(String flightNumber, String origin, String destination, LocalDateTime departureTime, Duration duration, Integer antallPlasser) {
-        ZonedDateTime zDepartureTime = ZonedDateTime.of(departureTime, ZoneId.systemDefault());
-        
-        this.flightNummer = flightNumber;
-        this.origin = origin;
-        this.destination = destination;
-        this.departureTime = zDepartureTime;
-        this.duration = duration;
-        this.antallPlasser = new SimpleIntegerProperty(antallPlasser);
-        this.reisende = new ArrayList<Reisende>();
-        this.grupper = new ArrayList<Gruppe>();
+        this.antallPlasser = new SimpleIntegerProperty(0);
+        this.reisende = javafx.collections.FXCollections.observableArrayList();
+        this.grupper =  javafx.collections.FXCollections.observableArrayList();
     }
 
     public String getFlightNummer() {
-        return flightNummer;
+        return flightNummer.getValue();
     }
 
     public void setFlightNummer(String flightNummer) {
-        this.flightNummer = flightNummer;
+        this.flightNummer.setValue(flightNummer);
+    }
+
+    public SimpleStringProperty flightNummerProperty() {
+        return this.flightNummer;
     }
 
     public String getOrigin() {
-        return origin;
+        return origin.getValue();
     }
 
     public void setOrigin(String origin) {
-        this.origin = origin;
+        this.origin.setValue(origin);
+    }
+
+    public SimpleStringProperty originProperty() {
+        return this.origin;
     }
 
     public String getDestination() {
-        return destination;
+        return destination.getValue();
     }
 
     public void setDestination(String destination) {
-        this.destination = destination;
+        this.destination.setValue(destination);
+    }
+
+    public SimpleStringProperty destinationProperty() {
+        return this.destination;
     }
 
     public ZonedDateTime getDepartureTime() {
@@ -82,6 +81,10 @@ public class Flight {
         this.departureTime = departureTime;
     }
 
+    public ZonedDateTime departureTimeProperty() {
+        return this.departureTime;
+    }
+
     public Duration getDuration() {
         return duration;
     }
@@ -90,16 +93,20 @@ public class Flight {
         this.duration = duration;
     }
     
-    public SimpleIntegerProperty antallPlasserProperty() {
-           return this.antallPlasser;
+     public Duration durationProperty() {
+        return this.duration;
     }
-    
+
     public Integer getAntallPlasser() {
         return this.antallPlasser.getValue();
     }
     
     public void setAntallPlasser(Integer a) {
         this.antallPlasser.setValue(a);
+    }
+    
+    public SimpleIntegerProperty antallPlasserProperty() {
+           return this.antallPlasser;
     }
     
     public ZonedDateTime getArrivalTime() {
@@ -130,7 +137,7 @@ public class Flight {
         return ret;
     }
     
-    public List<Gruppe> getGrupper() {
+    public ObservableList<Gruppe> getGrupper() {
         return grupper;
     }
 
@@ -146,7 +153,7 @@ public class Flight {
         return ret;
     }
 
-    public void setGrupper(List<Gruppe> grupper) {
+    public void setGrupper(ObservableList<Gruppe> grupper) {
         this.grupper = grupper;
     }
   

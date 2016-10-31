@@ -11,10 +11,8 @@ package no.norduni.oblig2;
  */
 public class Betaling {
     private Betalingsmetode metode;
-    // XXX: Her kunne det vært attributter som innbetalt beløp osv,
-    //      men oppgaven krever det ikke. Klassen er slik i fall
-    //      det blir behov senere.
 
+    
     public Betaling(Betalingsmetode metode) {
         this.metode = metode;
     }
@@ -25,6 +23,10 @@ public class Betaling {
 
     public void setMetode(Betalingsmetode metode) {
         this.metode = metode;
+    }
+    
+    public Betalingsmetode metodeProperty() {
+        return metode;
     }
     
     @Override

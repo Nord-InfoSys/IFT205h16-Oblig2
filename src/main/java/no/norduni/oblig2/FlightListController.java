@@ -51,14 +51,13 @@ public class FlightListController implements Initializable {
     
     @FXML
     private void handleAddFlightAction(ActionEvent event) throws IOException {
-        Flight flight = new Flight(
-            "ABC123",
-            "OSL",
-            "TRD",
-            LocalDateTime.now(),
-            Duration.ofSeconds(3700),
-            89
-        );
+        Flight flight = new Flight();
+        flight.setFlightNummer("ABC123");
+        flight.setDestination("OSL");
+        flight.setOrigin("TRD");
+        flight.setDepartureTime(ZonedDateTime.now());
+        flight.setDuration(Duration.ofSeconds(3700));
+        flight.setAntallPlasser(89);
         this.flighter.add(flight);
         this.showFlightDialog(flight);
     }
@@ -67,16 +66,13 @@ public class FlightListController implements Initializable {
     private void handleButtonAction(ActionEvent event) {
         label.setText("Hello World!");
         
-                
-        Flight flyvning = new Flight(
-            "SK3435",
-            "OSL",
-            "TRD",
-            LocalDateTime.now(),
-            Duration.ofSeconds(3700),
-            89
-        );
-        
+        Flight flyvning = new Flight();
+        flyvning.setFlightNummer("SK3435");
+        flyvning.setDestination("TRD");
+        flyvning.setOrigin("OSL");
+        flyvning.setDepartureTime(ZonedDateTime.now());
+        flyvning.setDuration(Duration.ofSeconds(3700));
+        flyvning.setAntallPlasser(44);        
         this.flighter.add(flyvning);
 
         for(Flight f: this.flighter) {
@@ -133,20 +129,21 @@ public class FlightListController implements Initializable {
     }
     
     private void bootstrapModelData() {
-        Flight flyvning;
-        flyvning = new Flight(
-            "WF747",
-            "MQN",
-            "TRD",
-            LocalDateTime.now(),
-            Duration.ofSeconds(5040),
-            34
-        );
+
+        Flight flyvning = new Flight();
+        flyvning.setFlightNummer("WF747");
+        flyvning.setDestination("MQN");
+        flyvning.setOrigin("TRD");
+        flyvning.setDepartureTime(ZonedDateTime.now());
+        flyvning.setDuration(Duration.ofSeconds(3700));
+        flyvning.setAntallPlasser(35);        
+ 
         
         Reisende r1 = new Reisende("Ola Dunk", Kjonn.MANN, 34, "87654321");
         Reisende r2 = new Reisende("Kari Dunk", Kjonn.KVINNE, 33, "2344234");
  
-        Gruppe g1 = new Gruppe("42");
+        Gruppe g1 = new Gruppe();
+        g1.setGruppeKode("42");
         g1.addReisende(r1);
         g1.addReisende(r2);
         

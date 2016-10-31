@@ -5,42 +5,43 @@
  */
 package no.norduni.oblig2;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author mortenj
  */
 public class Gruppe {
-    private String      gruppeKode;
-    private List<Reisende>  reisende;
+    private SimpleStringProperty      gruppeKode;
+    private ObservableList<Reisende>  reisende;
 
-    public Gruppe(String gruppeKode) {
-        this.gruppeKode = gruppeKode;
-        this.reisende = new ArrayList();
-    }
-
-    public Gruppe(String gruppeKode, List<Reisende> reisende) {
-        this.gruppeKode = gruppeKode;
-        this.reisende = reisende;
+    public Gruppe() {
+        this.gruppeKode = new SimpleStringProperty("");
+        this.reisende = javafx.collections.FXCollections.observableArrayList();
     }
 
     public String getGruppeKode() {
-        return gruppeKode;
+        return gruppeKode.getValue();
     }
 
     public void setGruppeKode(String gruppeKode) {
-        this.gruppeKode = gruppeKode;
+        this.gruppeKode.setValue(gruppeKode);
     }
 
-    public List<Reisende> getReisende() {
+     public SimpleStringProperty gruppeKodeProperty() {
+        return this.gruppeKode;
+    }
+
+   public ObservableList<Reisende> getReisende() {
         return reisende;
     }
 
-    public void setReisende(List<Reisende> reisende) {
+    public void setReisende(ObservableList<Reisende> reisende) {
         this.reisende = reisende;
     }
 
@@ -51,6 +52,11 @@ public class Gruppe {
     public Integer getAntallReisende() {
         return this.getReisende().size();
     }
+
+    public SimpleIntegerProperty antallReisendeProperty() {
+        return new SimpleIntegerProperty(this.getReisende().size());
+    }
+
     public Reisende getReisendeByIndex(Integer index) {
         return this.reisende.get(index);
     }
