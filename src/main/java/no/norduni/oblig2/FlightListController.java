@@ -6,6 +6,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -20,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -94,6 +97,7 @@ public class FlightListController implements Initializable {
 
       Stage stage = new Stage(StageStyle.DECORATED);
       stage.setScene(new Scene((Pane) loader.load()));
+      stage.setTitle("Edit Flight");
 
       FlightController controller = loader.<FlightController>getController();
       controller.setFlight(flight);
@@ -114,6 +118,25 @@ public class FlightListController implements Initializable {
         // Create some default data
         this.bootstrapModelData();
         
+
+
+        this.flightTableView.setRowFactory( tv -> {
+            TableRow<Flight> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    try {
+                        Flight rowData = row.getItem();
+                        this.showFlightDialog(rowData);
+                        System.out.println(rowData);
+                    } catch (IOException ex) {
+                        Logger.getLogger(FlightListController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            return row ;
+        });
+
+
         this.flightTableView.setItems(this.flighter);
         
         ObservableList<TableColumn> col = this.flightTableView.getColumns();
