@@ -24,7 +24,7 @@
       <Label prefHeight="16.0" prefWidth="105.0" text="Flightnummer" GridPane.columnIndex="1" />
       <Label text="Antall Plasser" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Bar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField fx:id="flightnr" prefHeight="26.0" prefWidth="370.0" GridPane.columnIndex="3" />
+      <TextField fx:id="flightnr" onAction="#handleFlightNrChanged" prefHeight="26.0" prefWidth="370.0" GridPane.columnIndex="3" />
       <Slider fx:id="antallPlasser" blockIncrement="1.0" min="1.0" value="1.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
    </children>
 </GridPane>
