@@ -17,24 +17,24 @@ import javafx.collections.ObservableList;
  * @author mortenj
  */
 public class Flight {
-    private SimpleStringProperty        flightNummer;
-    private SimpleStringProperty        origin;
-    private SimpleStringProperty        destination;
-    private ZonedDateTime               departureTime;
-    private Duration                    duration;
-    private SimpleIntegerProperty       antallPlasser;
-    private ObservableList<Reisende>    reisende;
-    private ObservableList<Gruppe>      grupper;
+    private SimpleStringProperty                flightNummer;
+    private SimpleStringProperty                origin;
+    private SimpleStringProperty                destination;
+    private SimpleObjectProperty<ZonedDateTime> departureTime;
+    private SimpleObjectProperty<Duration>      duration;
+    private SimpleIntegerProperty               antallPlasser;
+    private ObservableList<Reisende>            reisende;
+    private ObservableList<Gruppe>              grupper;
 
     public Flight() {
-        this.flightNummer = new SimpleStringProperty("");
-        this.origin = new SimpleStringProperty("");
-        this.destination = new SimpleStringProperty("");
-        this.departureTime = departureTime; // Simle Object Property
-        this.duration = duration;
-        this.antallPlasser = new SimpleIntegerProperty(0);
-        this.reisende = javafx.collections.FXCollections.observableArrayList();
-        this.grupper =  javafx.collections.FXCollections.observableArrayList();
+        this.flightNummer   = new SimpleStringProperty("");
+        this.origin         = new SimpleStringProperty("");
+        this.destination    = new SimpleStringProperty("");
+        this.departureTime  = new SimpleObjectProperty<>();
+        this.duration       = new SimpleObjectProperty<>();
+        this.antallPlasser  = new SimpleIntegerProperty(0);
+        this.reisende       = javafx.collections.FXCollections.observableArrayList();
+        this.grupper        = javafx.collections.FXCollections.observableArrayList();
     }
 
     public String getFlightNummer() {
@@ -74,26 +74,26 @@ public class Flight {
     }
 
     public ZonedDateTime getDepartureTime() {
-        return departureTime;
+        return departureTime.getValue();
     }
 
     public void setDepartureTime(ZonedDateTime departureTime) {
-        this.departureTime = departureTime;
+        this.departureTime.setValue(departureTime);
     }
 
-    public ZonedDateTime departureTimeProperty() {
+    public SimpleObjectProperty departureTimeProperty() {
         return this.departureTime;
     }
 
     public Duration getDuration() {
-        return duration;
+        return this.duration.getValue();
     }
 
     public void setDuration(Duration duration) {
-        this.duration = duration;
+        this.duration.setValue(duration);
     }
     
-     public Duration durationProperty() {
+     public SimpleObjectProperty durationProperty() {
         return this.duration;
     }
 
