@@ -20,7 +20,8 @@ public class Flight {
     private SimpleStringProperty                flightNummer;
     private SimpleStringProperty                origin;
     private SimpleStringProperty                destination;
-    private SimpleObjectProperty<ZonedDateTime> departureTime;
+    private SimpleObjectProperty<LocalDateTime> departureTime;
+    private SimpleObjectProperty<LocalDateTime> arrivalTime;
     private SimpleObjectProperty<Duration>      duration;
     private SimpleIntegerProperty               antallPlasser;
     private ObservableList<Reisende>            reisende;
@@ -31,6 +32,7 @@ public class Flight {
         this.origin         = new SimpleStringProperty("");
         this.destination    = new SimpleStringProperty("");
         this.departureTime  = new SimpleObjectProperty<>();
+        this.arrivalTime    = new SimpleObjectProperty<>();
         this.duration       = new SimpleObjectProperty<>();
         this.antallPlasser  = new SimpleIntegerProperty(0);
         this.reisende       = javafx.collections.FXCollections.observableArrayList();
@@ -73,16 +75,28 @@ public class Flight {
         return this.destination;
     }
 
-    public ZonedDateTime getDepartureTime() {
+    public LocalDateTime getDepartureTime() {
         return departureTime.getValue();
     }
 
-    public void setDepartureTime(ZonedDateTime departureTime) {
+    public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime.setValue(departureTime);
     }
 
     public SimpleObjectProperty departureTimeProperty() {
         return this.departureTime;
+    }
+
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime.getValue();
+    }
+
+    public void setArrivalTime(LocalDateTime arrivalTime) {
+        this.arrivalTime.setValue(arrivalTime);
+    }
+
+    public SimpleObjectProperty arrivalTimeProperty() {
+        return this.arrivalTime;
     }
 
     public Duration getDuration() {
@@ -109,10 +123,11 @@ public class Flight {
            return this.antallPlasser;
     }
     
-    public ZonedDateTime getArrivalTime() {
+ /*
+    public LocalDateTime getArrivalTime() {
         return this.getDepartureTime().plus(this.getDuration());
     }
-    
+*/    
     public void addReisende(Reisende passasjer) {
         this.reisende.add(passasjer);
     }

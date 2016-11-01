@@ -58,7 +58,7 @@ public class FlightListController implements Initializable {
         flight.setFlightNummer("ABC123");
         flight.setDestination("OSL");
         flight.setOrigin("TRD");
-        flight.setDepartureTime(ZonedDateTime.now());
+        flight.setDepartureTime(LocalDateTime.now());
         flight.setDuration(Duration.ofSeconds(3700));
         flight.setAntallPlasser(89);
         this.flighter.add(flight);
@@ -73,7 +73,7 @@ public class FlightListController implements Initializable {
         flyvning.setFlightNummer("SK3435");
         flyvning.setDestination("TRD");
         flyvning.setOrigin("OSL");
-        flyvning.setDepartureTime(ZonedDateTime.now());
+        flyvning.setDepartureTime(LocalDateTime.now());
         flyvning.setDuration(Duration.ofSeconds(3700));
         flyvning.setAntallPlasser(44);        
         this.flighter.add(flyvning);
@@ -93,13 +93,13 @@ public class FlightListController implements Initializable {
     }
 
     public Stage showFlightDialog(Flight flight) throws IOException {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Flight.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Flight2.fxml"));
 
       Stage stage = new Stage(StageStyle.DECORATED);
       stage.setScene(new Scene((Pane) loader.load()));
       stage.setTitle("Edit Flight");
 
-      FlightController controller = loader.<FlightController>getController();
+      FlightController2 controller = loader.<FlightController2>getController();
       controller.setFlight(flight);
 
       stage.show();
@@ -157,7 +157,7 @@ public class FlightListController implements Initializable {
         flyvning.setFlightNummer("WF747");
         flyvning.setDestination("MQN");
         flyvning.setOrigin("TRD");
-        flyvning.setDepartureTime(ZonedDateTime.now());
+        flyvning.setDepartureTime(LocalDateTime.now());
         flyvning.setDuration(Duration.ofSeconds(3700));
         flyvning.setAntallPlasser(35);        
  
