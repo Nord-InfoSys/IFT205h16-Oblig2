@@ -13,27 +13,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+   <bottom>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #DDD;" BorderPane.alignment="CENTER">
+        <buttons>
+          <Button alignment="CENTER" mnemonicParsing="false" text="Lukk" />
+        </buttons>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </ButtonBar>
+   </bottom>
+   <top>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="FlightData">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField layoutX="160.0" layoutY="36.0" prefHeight="26.0" prefWidth="190.0" />
+                        <TextField fx:id="flightNummer" layoutX="160.0" layoutY="36.0" prefHeight="26.0" prefWidth="190.0" />
                         <Label layoutX="34.0" layoutY="41.0" prefHeight="16.0" prefWidth="120.0" text="Flight:" />
                         <Label layoutX="34.0" layoutY="86.0" prefHeight="16.0" prefWidth="120.0" text="Fra / Til:" />
-                        <TextField layoutX="160.0" layoutY="81.0" prefHeight="26.0" prefWidth="80.0" />
-                        <TextField layoutX="270.0" layoutY="81.0" prefHeight="26.0" prefWidth="80.0" />
+                        <TextField fx:id="origin" layoutX="160.0" layoutY="81.0" prefHeight="26.0" prefWidth="80.0" />
+                        <TextField fx:id="destination" layoutX="270.0" layoutY="81.0" prefHeight="26.0" prefWidth="80.0" />
                         <Label alignment="CENTER" layoutX="239.0" layoutY="86.0" prefHeight="16.0" prefWidth="33.0" text="/" />
                         <Label layoutX="34.0" layoutY="147.0" prefHeight="16.0" prefWidth="120.0" text="Avgangstid:" />
                         <Label layoutX="34.0" layoutY="194.0" prefHeight="16.0" prefWidth="120.0" text="Flytid:" />
                         <Label layoutX="34.0" layoutY="240.0" prefHeight="16.0" prefWidth="120.0" text="Seter:" />
-                        <DatePicker layoutX="160.0" layoutY="142.0" prefHeight="26.0" prefWidth="190.0" />
-                        <TextField layoutX="160.0" layoutY="189.0" prefHeight="26.0" prefWidth="80.0" />
-                        <TextField layoutX="160.0" layoutY="235.0" prefHeight="26.0" prefWidth="80.0" />
+                        <DatePicker fx:id="departureTime" layoutX="160.0" layoutY="142.0" prefHeight="26.0" prefWidth="190.0" />
+                        <TextField fx:id="duration" layoutX="160.0" layoutY="189.0" prefHeight="26.0" prefWidth="80.0" />
+                        <TextField fx:id="antallPlasser" layoutX="160.0" layoutY="235.0" prefHeight="26.0" prefWidth="80.0" />
                      </children>
                   </AnchorPane>
             </content>
@@ -73,18 +85,5 @@
             </Tab>
         </tabs>
       </TabPane>
-   </center>
-   <bottom>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #EEE;" BorderPane.alignment="CENTER">
-        <buttons>
-          <Button alignment="CENTER" mnemonicParsing="false" text="Lukk" />
-        </buttons>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <padding>
-            <Insets right="10.0" />
-         </padding>
-      </ButtonBar>
-   </bottom>
+   </top>
 </BorderPane>
