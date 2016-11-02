@@ -72,6 +72,10 @@ public class FlightController2 {
         // Bind Passenger List to this.passengerTable
         this.passengerTable.setItems(this.flight.getReisende());
         
+        // Set CellValueFactory for each column.
+        // The ID on each column is named the same as the property names on the model object.
+        // PropertyValueFactory will try to fetch the property by .nameProperty() automagically.
+        // It will revert to .getName() if the model does not have .nameProperty()
         ObservableList<TableColumn> col = this.passengerTable.getColumns();
         for(TableColumn c : col) {
             switch(c.getId()) {
