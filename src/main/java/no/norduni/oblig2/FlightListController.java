@@ -25,6 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -64,6 +65,8 @@ public class FlightListController implements Initializable {
         flight.setAntallPlasser(89);
         this.flighter.add(flight);
         this.showFlightDialog(flight);
+        
+        
     }
 
     @FXML
@@ -166,9 +169,18 @@ public class FlightListController implements Initializable {
         flyvning.setAntallPlasser(35);        
  
         
-        Reisende r1 = new Reisende("Ola Dunk", Kjonn.MANN, 34, "87654321");
-        Reisende r2 = new Reisende("Kari Dunk", Kjonn.KVINNE, 33, "2344234");
- 
+        Reisende r1 = new Reisende();
+        r1.setNavn("Ola Dunk");
+        r1.setKjonn(Kjonn.MANN);
+        r1.setAlder(34);
+        r1.setPassnr("87654321");
+        
+        Reisende r2 = new Reisende();
+        r2.setNavn("Kari Dunk");
+        r2.setKjonn(Kjonn.KVINNE);
+        r2.setAlder(33);
+        r2.setPassnr("2344234");
+         
         Gruppe g1 = new Gruppe();
         g1.setGruppeKode("42");
         g1.addReisende(r1);
@@ -181,5 +193,10 @@ public class FlightListController implements Initializable {
         
         flighter.add(flyvning);
 
+    }
+
+    @FXML
+    private void magicHoverAction(MouseEvent event) {
+        //this.clickMeButton.disableProperty().setValue(Boolean.TRUE);
     }
 }

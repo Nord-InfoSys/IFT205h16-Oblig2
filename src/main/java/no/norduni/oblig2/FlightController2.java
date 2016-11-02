@@ -5,12 +5,13 @@
  */
 package no.norduni.oblig2;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML ;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField ;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -73,8 +74,20 @@ public class FlightController2 {
         this.departureTime.localDateTimeProperty().bindBidirectional(this.flight.departureTimeProperty());
         this.arrivalTime.localDateTimeProperty().bindBidirectional(this.flight.arrivalTimeProperty());
 
-
-//        this.antallPlasser.textProperty().bindBidirectional(this.flight.antallPlasserProperty());
+        // Bind Passenger List to this.passengerTable
+        this.passengerTable.setItems(this.flight.getReisende());
+        
+        // Set CellValueFactory for each column.
+        // The ID on each column is named the same as the property names on the model object.
+        // PropertyValueFactory will try to fetch the property by .nameProperty() automagically.
+        // It will revert to .getName() if the model does not have .nameProperty()
+        ObservableList<TableColumn> col = this.passengerTable.getColumns();
+        for(TableColumn c : col) {
+            switch(c.getId()) {
+                default:
+                    c.setCellValueFactory(new PropertyValueFactory(c.getId()));
+            }
+        }
     }
 
 }

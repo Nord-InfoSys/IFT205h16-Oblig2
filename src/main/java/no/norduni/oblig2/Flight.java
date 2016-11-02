@@ -140,7 +140,7 @@ public class Flight {
         return this.reisende.size();
     }
 
-    public List<Reisende> getReisende() {
+    public ObservableList<Reisende> getReisende() {
         return this.reisende;
     }
 

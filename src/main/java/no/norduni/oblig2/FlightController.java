@@ -44,6 +44,6 @@ public class FlightController {
         this.antallPlasser.valueProperty().bindBidirectional(this.flight.antallPlasserProperty());
         //this.flight.antallPlasserProperty().bindBidirectional(this.antallPlasser.valueProperty());
     }
-    
+
 
 }
