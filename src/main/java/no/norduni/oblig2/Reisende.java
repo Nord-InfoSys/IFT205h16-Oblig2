@@ -16,7 +16,7 @@ import javafx.beans.property.StringProperty;
 
 /**
  *
- * @author mortenj
+ * @author bubbaJ
  */
 public class Reisende {
 

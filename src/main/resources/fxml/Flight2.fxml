@@ -11,14 +11,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-
-<?import jfxtras.scene.control.*?>
+<?import jfxtras.scene.control.LocalDateTimeTextField?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.norduni.oblig2.FlightController2">
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #DDD;" BorderPane.alignment="CENTER">
         <buttons>
-          <Button alignment="CENTER" mnemonicParsing="false" text="Lukk" />
+          <Button alignment="CENTER" mnemonicParsing="false" text="Lukk" onAction="#closeButtonAction" fx:id="closeButton"/>
         </buttons>
          <BorderPane.margin>
             <Insets />
@@ -44,9 +43,9 @@
                         <Label alignment="CENTER" layoutX="239.0" layoutY="86.0" prefHeight="16.0" prefWidth="33.0" text="/" />
 
                         <Label layoutX="34.0" layoutY="147.0" prefHeight="16.0" prefWidth="120.0" text="Avgangstid:" />
-                        <LocalDateTimeTextField fx:id="departureTime" layoutX="160.0" layoutY="142.0" prefHeight="26.0" prefWidth="190.0" onMouseExited="#handleDateTimeChanged" />
+                        <LocalDateTimeTextField fx:id="departureTime" layoutX="160.0" layoutY="142.0" onMouseExited="#handleDateTimeChanged" prefHeight="26.0" prefWidth="190.0" />
                         <Label layoutX="34.0" layoutY="194.0" prefHeight="16.0" prefWidth="120.0" text="Ankomsttid:" />
-                        <LocalDateTimeTextField fx:id="arrivalTime" layoutX="160.0" layoutY="189.0" prefHeight="26.0" prefWidth="190.0" onMouseClicked="#handleDateTimeChanged" />
+                        <LocalDateTimeTextField fx:id="arrivalTime" layoutX="160.0" layoutY="189.0" onMouseClicked="#handleDateTimeChanged" prefHeight="26.0" prefWidth="190.0" />
                         <Label layoutX="34.0" layoutY="240.0" prefHeight="16.0" prefWidth="120.0" text="Seter:" />
                         <TextField fx:id="antallPlasser" layoutX="160.0" layoutY="235.0" prefHeight="26.0" prefWidth="80.0" />
                      </children>
@@ -59,7 +58,7 @@
                      <children>
                         <TableView fx:id="passengerTable" layoutX="14.0" layoutY="14.0" prefHeight="341.0" prefWidth="574.0">
                           <columns>
-                            <TableColumn id="navn" prefWidth="75.0" text="Navn" />
+                            <TableColumn id="navn" prefWidth="95.0" text="Navn" />
                               <TableColumn id="alder" prefWidth="75.0" text="Alder" />
                               <TableColumn id="kjonn" prefWidth="75.0" text="Kjønn" />
                               <TableColumn id="passnr" prefWidth="75.0" text="Pass" />
@@ -77,9 +76,8 @@
                      <children>
                         <TableView fx:id="groupTable" layoutX="14.0" layoutY="14.0" prefHeight="347.0" prefWidth="578.0">
                           <columns>
-                            <TableColumn id="gruppeKode" prefWidth="75.0" text="Gruppe" />
-                              <TableColumn prefWidth="75.0" text="FlightNr" />
-                              <TableColumn prefWidth="75.0" text="Antall" />
+                              <TableColumn id="gruppeKode" prefWidth="275.0" text="Gruppe" />
+                              <TableColumn id="antallReisende" prefWidth="75.0" text="Antall" />
                           </columns>
                         </TableView>
                      </children>

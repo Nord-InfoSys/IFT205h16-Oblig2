@@ -19,7 +19,7 @@ public class MainApp extends Application {
         
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("AwsumBookum!");
+        stage.setTitle("AwsumScrotum!");
         stage.setScene(scene);
 
 //        MenuBar menuBar = null;

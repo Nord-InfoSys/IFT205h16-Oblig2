@@ -7,23 +7,19 @@ package no.norduni.oblig2;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML ;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField ;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import jfxtras.scene.control.LocalDateTimeTextField;
-import jfxtras.scene.control.LocalTimeTextField;
-
-// import org.jfxtras
 
 
 /**
  *
- * @author mortenj
+ * @author bubbaJ
  */
 public class FlightController2 {
 
@@ -49,7 +45,16 @@ public class FlightController2 {
     @FXML
     private LocalDateTimeTextField arrivalTime;
 
-
+    @FXML
+    private javafx.scene.control.Button closeButton;
+    @FXML
+    private void closeButtonAction(){
+        // get a handle to the stage
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+    }
+    
     @FXML
     private void handleDateTimeChanged(MouseEvent event) {
         this.flight.calcDuration(this.flight.getDepartureTime(), this.flight.getArrivalTime());
@@ -86,6 +91,25 @@ public class FlightController2 {
             switch(c.getId()) {
                 default:
                     c.setCellValueFactory(new PropertyValueFactory(c.getId()));
+            }
+        }
+
+
+
+        // Bind Grupper List to this.groupTable
+        this.groupTable.setItems(this.flight.getGrupper());
+        
+        ObservableList<TableColumn> col2 = this.groupTable.getColumns();
+        for(TableColumn c2 : col2) {
+            switch(c2.getId()) {
+ /*
+                case "flightNr":
+                    // c2.setCellValueFactory(new PropertyValueFactory(this.flight.getFlightNummer()));  // FIX ME !!
+                    //c2.setText(this.flight.getFlightNummer());
+                    c2.setCellValueFactory(new PropertyValueFactory(this.flight.getGrupper().toString()));
+*/
+                default:
+                    c2.setCellValueFactory(new PropertyValueFactory(c2.getId()));
             }
         }
     }

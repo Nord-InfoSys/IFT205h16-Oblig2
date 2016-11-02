@@ -7,7 +7,7 @@ package no.norduni.oblig2;
 
 /**
  *
- * @author mortenj
+ * @author bubbaJ
  */
 public enum Kjonn {
     MANN, KVINNE;
