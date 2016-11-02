@@ -5,10 +5,13 @@
  */
 package no.norduni.oblig2;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML ;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField ;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
 import jfxtras.scene.control.LocalDateTimeTextField;
@@ -65,9 +68,16 @@ public class FlightController2 {
         this.destination.textProperty().bindBidirectional(this.flight.destinationProperty());
         this.departureTime.localDateTimeProperty().bindBidirectional(this.flight.departureTimeProperty());
         this.arrivalTime.localDateTimeProperty().bindBidirectional(this.flight.arrivalTimeProperty());
-//        this.duration.localTimeProperty().bindBidirectional(this.flight.durationProperty());
 
-//        this.duration.textProperty().bindBidirectional(this.flight.durationProperty());
-//        this.antallPlasser.textProperty().bindBidirectional(this.flight.antallPlasserProperty());
+        // Bind Passenger List to this.passengerTable
+        this.passengerTable.setItems(this.flight.getReisende());
+        
+        ObservableList<TableColumn> col = this.passengerTable.getColumns();
+        for(TableColumn c : col) {
+            switch(c.getId()) {
+                default:
+                    c.setCellValueFactory(new PropertyValueFactory(c.getId()));
+            }
+        }
     }
 }

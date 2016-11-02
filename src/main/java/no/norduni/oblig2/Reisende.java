@@ -5,63 +5,99 @@
  */
 package no.norduni.oblig2;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author mortenj
  */
 public class Reisende {
-    private String navn;
-    private Kjonn kjonn;
-    private int alder;
-    private String passnr;
-    private Betaling betaling;
 
-    public Reisende(String navn, Kjonn kjonn, int alder, String passnr) {
-        this.navn = navn;
-        this.kjonn = kjonn;
-        this.alder = alder;
-        this.passnr = passnr;
-        this.betaling = null;
+    private final BooleanProperty shavenBalls = new SimpleBooleanProperty();
+    private final StringProperty navn = new SimpleStringProperty();
+    private final IntegerProperty alder = new SimpleIntegerProperty();
+    private final StringProperty passnr = new SimpleStringProperty();
+    private final ObjectProperty<Kjonn> kjonn = new SimpleObjectProperty<>();
+    private final ObjectProperty<Betaling> betaling = new SimpleObjectProperty<>();
+
+    public Betaling getBetaling() {
+        return betaling.get();
     }
 
-    public String getNavn() {
-        return navn;
+    public void setBetaling(Betaling value) {
+        betaling.set(value);
     }
 
-    public void setNavn(String navn) {
-        this.navn = navn;
+    public ObjectProperty betalingProperty() {
+        return betaling;
     }
+    
 
     public Kjonn getKjonn() {
+        return kjonn.get();
+    }
+
+    public void setKjonn(Kjonn value) {
+        kjonn.set(value);
+    }
+
+    public ObjectProperty kjonnProperty() {
         return kjonn;
     }
 
-    public void setKjonn(Kjonn kjonn) {
-        this.kjonn = kjonn;
-    }
-
-    public int getAlder() {
-        return alder;
-    }
-
-    public void setAlder(int alder) {
-        this.alder = alder;
-    }
-
     public String getPassnr() {
+        return passnr.get();
+    }
+
+    public void setPassnr(String value) {
+        passnr.set(value);
+    }
+
+    public StringProperty passnrProperty() {
         return passnr;
     }
 
-    public void setPassnr(String passnr) {
-        this.passnr = passnr;
+    public int getAlder() {
+        return alder.get();
     }
 
-    public void setBetaling(Betaling betaling) {
-        this.betaling = betaling;
+    public void setAlder(int value) {
+        alder.set(value);
+    }
+
+    public IntegerProperty alderProperty() {
+        return alder;
+    }
+
+    public String getNavn() {
+        return navn.get();
+    }
+
+    public void setNavn(String value) {
+        navn.set(value);
+    }
+
+    public StringProperty navnProperty() {
+        return navn;
+    }
+
+    public boolean isShavenBalls() {
+        return shavenBalls.get();
+    }
+
+    public void setShavenBalls(boolean value) {
+        shavenBalls.set(value);
+    }
+
+    public BooleanProperty shavenBallsProperty() {
+        return shavenBalls;
     }
     
-    public Betaling getBetaling() {
-        return betaling;
-    }
-
 }
