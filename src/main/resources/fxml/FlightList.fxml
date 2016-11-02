@@ -38,7 +38,8 @@
           <TableColumn id="FlightNummer" prefWidth="75.0" text="Flightnr" />
           <TableColumn id="Origin" prefWidth="75.0" text="Origin" />
             <TableColumn id="Destination" prefWidth="75.0" text="Destination" />
-            <TableColumn id="DepartureTime" prefWidth="75.0" text="Departure Time" />
+            <TableColumn id="DepartureTime" prefWidth="190.0" text="Departure Time" />
+            <TableColumn id="ArrivalTime" prefWidth="190.0" text="Arrival Time" />
             <TableColumn id="Duration" prefWidth="75.0" text="Duration" />
             <TableColumn id="antallPlasser" prefWidth="75.0" text="Seats" />
             <TableColumn id="AntallBooket" prefWidth="75.0" text="#Booked" />

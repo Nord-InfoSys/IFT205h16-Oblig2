@@ -59,7 +59,8 @@ public class FlightListController implements Initializable {
         flight.setDestination("OSL");
         flight.setOrigin("TRD");
         flight.setDepartureTime(LocalDateTime.now());
-        flight.setDuration(Duration.ofSeconds(3700));
+        flight.setArrivalTime(LocalDateTime.now().plusHours(1));
+        flight.setDuration(Duration.ofSeconds(3600));
         flight.setAntallPlasser(89);
         this.flighter.add(flight);
         this.showFlightDialog(flight);
@@ -75,6 +76,8 @@ public class FlightListController implements Initializable {
         flyvning.setOrigin("OSL");
         flyvning.setDepartureTime(LocalDateTime.now());
         flyvning.setDuration(Duration.ofSeconds(3700));
+        flyvning.setArrivalTime(LocalDateTime.now().plusHours(2));
+        flyvning.setDuration(Duration.ofSeconds(7200));
         flyvning.setAntallPlasser(44);        
         this.flighter.add(flyvning);
 
@@ -158,7 +161,8 @@ public class FlightListController implements Initializable {
         flyvning.setDestination("MQN");
         flyvning.setOrigin("TRD");
         flyvning.setDepartureTime(LocalDateTime.now());
-        flyvning.setDuration(Duration.ofSeconds(3700));
+        flyvning.setArrivalTime(LocalDateTime.now().plusMinutes(5));
+        flyvning.setDuration(Duration.ofSeconds(300));
         flyvning.setAntallPlasser(35);        
  
         

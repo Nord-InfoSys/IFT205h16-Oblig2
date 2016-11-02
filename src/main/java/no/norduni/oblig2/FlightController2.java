@@ -5,11 +5,14 @@
  */
 package no.norduni.oblig2;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import javafx.fxml.FXML ;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField ;
 import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import jfxtras.scene.control.LocalDateTimeTextField;
 import jfxtras.scene.control.LocalTimeTextField;
@@ -41,14 +44,18 @@ public class FlightController2 {
     @FXML
     private TableView groupTable;
     @FXML
-    private LocalTimeTextField duration;
-    @FXML
     private LocalDateTimeTextField departureTime;
     @FXML
     private LocalDateTimeTextField arrivalTime;
 
 
-    
+    @FXML
+    private void handleDateTimeChanged(MouseEvent event) {
+        this.flight.calcDuration(this.flight.getDepartureTime(), this.flight.getArrivalTime());
+        System.out.println(this.flight.getDuration());
+    }
+
+   
     void handleFlightNrChanged(InputMethodEvent event) {
  //       this.flight.setFlightNummer(this.flightnr.getText());
     }
@@ -65,9 +72,9 @@ public class FlightController2 {
         this.destination.textProperty().bindBidirectional(this.flight.destinationProperty());
         this.departureTime.localDateTimeProperty().bindBidirectional(this.flight.departureTimeProperty());
         this.arrivalTime.localDateTimeProperty().bindBidirectional(this.flight.arrivalTimeProperty());
-//        this.duration.localTimeProperty().bindBidirectional(this.flight.durationProperty());
 
-//        this.duration.textProperty().bindBidirectional(this.flight.durationProperty());
+
 //        this.antallPlasser.textProperty().bindBidirectional(this.flight.antallPlasserProperty());
     }
+
 }

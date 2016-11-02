@@ -106,6 +106,10 @@ public class Flight {
     public void setDuration(Duration duration) {
         this.duration.setValue(duration);
     }
+
+    public void calcDuration(LocalDateTime departure, LocalDateTime arrival) {
+        this.setDuration(Duration.between(departure, arrival));
+    }
     
      public SimpleObjectProperty durationProperty() {
         return this.duration;
