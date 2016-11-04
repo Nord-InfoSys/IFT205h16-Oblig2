@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="reisendeView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="338.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.norduni.oblig2.reisendeController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="50.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="152.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="24.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="10.0" prefWidth="211.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="361.0" minWidth="10.0" prefWidth="23.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label prefHeight="16.0" prefWidth="105.0" text="Navn" GridPane.columnIndex="1" />
+      <Label text="Alder" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="Kjønn" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="reisendeNavnField" prefHeight="26.0" prefWidth="370.0" promptText="Fornavn Etternavn" GridPane.columnIndex="3" />
+      <Slider fx:id="reisendeAlderField" blockIncrement="1.0" min="1.0" value="1.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Label text="Pass" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label text="Betaling" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label text="Gruppe" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <ChoiceBox fx:id="gruppeVelger" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <RadioButton fx:id="reisendeKjonnRadioMANN" mnemonicParsing="false" selected="true" text="Mann" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <RadioButton fx:id="reisendeKjonnRadioKVINNE" contentDisplay="RIGHT" mnemonicParsing="false" text="Kvinne" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <TextField fx:id="reisendePassField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <CheckBox fx:id="reisendeBetalingCheckCash" mnemonicParsing="false" text="Cash" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <CheckBox fx:id="reisendeBetalingCheckKort" mnemonicParsing="false" text="Kort" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+   </children>
+</GridPane>
