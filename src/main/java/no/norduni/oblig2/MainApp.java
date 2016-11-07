@@ -22,12 +22,6 @@ public class MainApp extends Application {
         stage.setTitle("AwsumBookum!");
         stage.setScene(scene);
 
-//        MenuBar menuBar = null;
-//        
-//        final String os = System.getProperty ("os.name");
-//        if (os != null && os.startsWith ("Mac"))
-//          menuBar.useSystemMenuBarProperty().set(true);
-
         stage.show();
     }
 
