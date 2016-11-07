@@ -4,12 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -60,7 +57,8 @@ public class FlightListController implements Initializable {
         flight.setDestination("OSL");
         flight.setOrigin("TRD");
         flight.setDepartureTime(LocalDateTime.now());
-        flight.setDuration(Duration.ofSeconds(3700));
+        flight.setArrivalTime(LocalDateTime.now().plusHours(1));
+        flight.setDuration(Duration.ofSeconds(3600));
         flight.setAntallPlasser(89);
         this.flighter.add(flight);
         this.showFlightDialog(flight);
@@ -78,6 +76,8 @@ public class FlightListController implements Initializable {
         flyvning.setOrigin("OSL");
         flyvning.setDepartureTime(LocalDateTime.now());
         flyvning.setDuration(Duration.ofSeconds(3700));
+        flyvning.setArrivalTime(LocalDateTime.now().plusHours(2));
+        flyvning.setDuration(Duration.ofSeconds(7200));
         flyvning.setAntallPlasser(44);        
         this.flighter.add(flyvning);
 
@@ -161,7 +161,8 @@ public class FlightListController implements Initializable {
         flyvning.setDestination("MQN");
         flyvning.setOrigin("TRD");
         flyvning.setDepartureTime(LocalDateTime.now());
-        flyvning.setDuration(Duration.ofSeconds(3700));
+        flyvning.setArrivalTime(LocalDateTime.now().plusMinutes(5));
+        flyvning.setDuration(Duration.ofSeconds(300));
         flyvning.setAntallPlasser(35);        
  
         
@@ -177,15 +178,26 @@ public class FlightListController implements Initializable {
         r2.setAlder(33);
         r2.setPassnr("2344234");
          
+        Reisende r3 = new Reisende();
+        r3.setNavn("P. Mester Fix");
+        r3.setKjonn(Kjonn.MANN);
+        r3.setAlder(44);
+        r3.setPassnr("8976543");
+         
         Gruppe g1 = new Gruppe();
         g1.setGruppeKode("42");
         g1.addReisende(r1);
         g1.addReisende(r2);
+
+        Gruppe g2 = new Gruppe();
+        g2.setGruppeKode("LænsMainn");
+        g2.addReisende(r3);
         
         flyvning.addReisende(r1);
         flyvning.addReisende(r2);
         
         flyvning.addGruppe(g1);
+        flyvning.addGruppe(g2);
         
         flighter.add(flyvning);
 

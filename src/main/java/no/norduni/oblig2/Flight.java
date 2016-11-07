@@ -6,7 +6,6 @@
 package no.norduni.oblig2;
 
 import java.time.*;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import javafx.beans.property.*;
@@ -14,18 +13,18 @@ import javafx.collections.ObservableList;
 
 /**
  *
- * @author mortenj
+ * @author bubbjaJ
  */
 public class Flight {
-    private SimpleStringProperty                flightNummer;
-    private SimpleStringProperty                origin;
-    private SimpleStringProperty                destination;
-    private SimpleObjectProperty<LocalDateTime> departureTime;
-    private SimpleObjectProperty<LocalDateTime> arrivalTime;
-    private SimpleObjectProperty<Duration>      duration;
-    private SimpleIntegerProperty               antallPlasser;
-    private ObservableList<Reisende>            reisende;
-    private ObservableList<Gruppe>              grupper;
+    private final SimpleStringProperty                flightNummer;
+    private final SimpleStringProperty                origin;
+    private final SimpleStringProperty                destination;
+    private final SimpleObjectProperty<LocalDateTime> departureTime;
+    private final SimpleObjectProperty<LocalDateTime> arrivalTime;
+    private final SimpleObjectProperty<Duration>      duration;
+    private final SimpleIntegerProperty               antallPlasser;
+    private final ObservableList<Reisende>            reisende;
+    private       ObservableList<Gruppe>              grupper;
 
     public Flight() {
         this.flightNummer   = new SimpleStringProperty("");
@@ -105,6 +104,10 @@ public class Flight {
 
     public void setDuration(Duration duration) {
         this.duration.setValue(duration);
+    }
+
+    public void calcDuration(LocalDateTime departure, LocalDateTime arrival) {
+        this.setDuration(Duration.between(departure, arrival));
     }
     
      public SimpleObjectProperty durationProperty() {

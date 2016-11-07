@@ -13,7 +13,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  *
- * @author mortenj
+ * @author bubbaJ
  */
 public class FlightController {
 
@@ -40,9 +40,7 @@ public class FlightController {
     public void setFlight(Flight flight) {
         this.flight = flight;
         this.flightnr.textProperty().bindBidirectional(this.flight.flightNummerProperty());
-        //this.flight.flightNummerProperty().bindBidirectional(this.flightnr.textProperty() );
         this.antallPlasser.valueProperty().bindBidirectional(this.flight.antallPlasserProperty());
-        //this.flight.antallPlasserProperty().bindBidirectional(this.antallPlasser.valueProperty());
     }
 
 

@@ -7,7 +7,7 @@ package no.norduni.oblig2;
 
 /**
  *
- * @author mortenj
+ * @author bubbaJ
  */
 public class Betaling {
     private Betalingsmetode metode;

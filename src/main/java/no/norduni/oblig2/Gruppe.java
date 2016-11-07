@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
 
 /**
  *
- * @author mortenj
+ * @author bubbaJ
  */
 public class Gruppe {
     private SimpleStringProperty      gruppeKode;
