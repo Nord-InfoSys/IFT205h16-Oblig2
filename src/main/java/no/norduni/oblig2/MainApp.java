@@ -2,10 +2,11 @@ package no.norduni.oblig2;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 
@@ -13,15 +14,30 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/FlightList.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FlightList.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/FlightList.fxml"));
         
-        Scene scene = new Scene(root);
+        Scene scene = new Scene((Pane) loader.load());
         
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("AwsumScrotum!");
+        stage.setTitle("AwesomeBooking");
         stage.setScene(scene);
-
+        
+        stage.focusedProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+                
+                if(ov.getValue() == Boolean.TRUE) {
+                    FlightListController c = loader.getController();
+                    c.updateFlightList();
+                    System.out.println(ov);
+                }
+                //System.out.println(ov);
+            }
+        });
+        
         stage.show();
     }
 

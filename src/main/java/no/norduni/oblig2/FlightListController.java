@@ -203,6 +203,14 @@ public class FlightListController implements Initializable {
 
     }
 
+    public void updateFlightList() {
+        // Workaround for å oppdatere tableView
+        ObservableList<TableColumn> columns = flightTableView.getColumns();
+        TableColumn c = columns.get(0);
+        c.setVisible(false);
+        c.setVisible(true);
+    }
+    
     @FXML
     private void magicHoverAction(MouseEvent event) {
         //this.clickMeButton.disableProperty().setValue(Boolean.TRUE);
