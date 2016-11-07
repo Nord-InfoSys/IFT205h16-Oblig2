@@ -62,9 +62,12 @@ public class FlightListController implements Initializable {
         flight.setAntallPlasser(89);
         this.flighter.add(flight);
         this.showFlightDialog(flight);
-        
-        
     }
+    
+    @FXML
+    private void handleDeleteFlightAction(ActionEvent event) throws IOException {
+        flighter.remove(flightTableView.getSelectionModel().getSelectedIndex());
+    }    
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
