@@ -17,6 +17,8 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #DDD;" BorderPane.alignment="CENTER">
         <buttons>
+          <Button alignment="CENTER" mnemonicParsing="false" text="Ny reisende" onAction="#handleAddReisendeAction" fx:id="addReisendeButton"/>
+          <Button alignment="CENTER" mnemonicParsing="false" text="Slett valgt" onAction="#handleDeleteReisendeAction" fx:id="deleteReisendeButton"/>
           <Button alignment="CENTER" mnemonicParsing="false" text="Lukk" onAction="#closeButtonAction" fx:id="closeButton"/>
         </buttons>
          <BorderPane.margin>

@@ -11,9 +11,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML ;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -54,6 +56,10 @@ public class FlightController {
     @FXML
     private javafx.scene.control.Button closeButton;
     @FXML
+    private Button addReisendeButton;
+    @FXML
+    private Button deleteReisendeButton;
+    @FXML
     private void closeButtonAction(){
         // get a handle to the stage
         Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -65,8 +71,20 @@ public class FlightController {
         this.flight.calcDuration(this.flight.getDepartureTime(), this.flight.getArrivalTime());
         System.out.println(this.flight.getDuration());
     }
+  
+    @FXML
+    private void handleAddReisendeAction(ActionEvent event) throws IOException {
+        Reisende reisende = new Reisende();
+        reisende.setNavn("-");
+        
+        this.flight.addReisende(reisende);
+        this.showReisendeDialog(reisende);
+    }
+ 
+    @FXML
+    private void handleDeleteReisendeAction(ActionEvent event) {
+    }
 
-   
     void handleFlightNrChanged(InputMethodEvent event) {
  //       this.flight.setFlightNummer(this.flightnr.getText());
     }
@@ -159,4 +177,5 @@ public class FlightController {
     public void initialize(URL location, ResourceBundle resources) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }
