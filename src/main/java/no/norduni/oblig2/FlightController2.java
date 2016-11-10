@@ -5,15 +5,25 @@
  */
 package no.norduni.oblig2;
 
+import java.io.IOException;
+import java.net.*;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML ;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField ;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import jfxtras.scene.control.LocalDateTimeTextField;
 
 
@@ -27,13 +37,10 @@ public class FlightController2 {
     
     @FXML
     private TextField flightNummer;
-
     @FXML
     private TextField origin;
-
     @FXML
     private TextField destination;
-
     @FXML
     private TextField antallPlasser;
     @FXML
@@ -44,7 +51,6 @@ public class FlightController2 {
     private LocalDateTimeTextField departureTime;
     @FXML
     private LocalDateTimeTextField arrivalTime;
-
     @FXML
     private javafx.scene.control.Button closeButton;
     @FXML
@@ -54,7 +60,6 @@ public class FlightController2 {
         // do what you have to do
         stage.close();
     }
-    
     @FXML
     private void handleDateTimeChanged(MouseEvent event) {
         this.flight.calcDuration(this.flight.getDepartureTime(), this.flight.getArrivalTime());
@@ -79,13 +84,33 @@ public class FlightController2 {
         this.departureTime.localDateTimeProperty().bindBidirectional(this.flight.departureTimeProperty());
         this.arrivalTime.localDateTimeProperty().bindBidirectional(this.flight.arrivalTimeProperty());
 
-        // Bind Passenger List to this.passengerTable
-        this.passengerTable.setItems(this.flight.getReisende());
-        
         // Set CellValueFactory for each column.
         // The ID on each column is named the same as the property names on the model object.
         // PropertyValueFactory will try to fetch the property by .nameProperty() automagically.
         // It will revert to .getName() if the model does not have .nameProperty()
+
+        
+        this.passengerTable.setRowFactory( tv -> {
+            TableRow<Reisende> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    try {
+                        Reisende rowData = row.getItem();
+                        this.showReisendeDialog(rowData);
+                        System.out.println(rowData);
+                    } catch (IOException ex) {
+                        Logger.getLogger(FlightController2.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            return row ;
+        });
+
+
+        // Bind Passenger List to this.passengerTable
+        this.passengerTable.setItems(this.flight.getReisende());
+
+        // Fyll inn data i radene
         ObservableList<TableColumn> col = this.passengerTable.getColumns();
         for(TableColumn c : col) {
             switch(c.getId()) {
@@ -94,8 +119,7 @@ public class FlightController2 {
             }
         }
 
-
-
+        
         // Bind Grupper List to this.groupTable
         this.groupTable.setItems(this.flight.getGrupper());
         
@@ -114,4 +138,25 @@ public class FlightController2 {
         }
     }
 
+
+// CRUD @ Reisende
+    public Stage showReisendeDialog(Reisende reisende) throws IOException {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Reisende.fxml"));
+
+      Stage stage = new Stage(StageStyle.DECORATED);
+      stage.setScene(new Scene((Pane) loader.load()));
+      stage.setTitle("Edit Reisende");
+
+      ReisendeController controller = loader.<ReisendeController>getController();
+      controller.setReisende(reisende);
+
+      stage.show();
+
+      return stage;
+    }
+
+    
+    public void initialize(URL location, ResourceBundle resources) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
