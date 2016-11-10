@@ -89,11 +89,13 @@ public class ReisendeController implements Initializable {
         this.reisendeBetalingCheckKort;
 */
 
-    this.reisendeNavnField.textProperty().bindBidirectional(this.reisende.navnProperty());
-    this.reisendeAlderField.valueProperty().bindBidirectional(this.reisende.alderProperty());
+        this.reisendeNavnField.textProperty().bindBidirectional(this.reisende.navnProperty());
+        this.reisendeAlderField.valueProperty().bindBidirectional(this.reisende.alderProperty());
 
-    this.reisendePassField.textProperty().bindBidirectional(this.reisende.passnrProperty());
-         
+        this.reisendePassField.textProperty().bindBidirectional(this.reisende.passnrProperty());
+
+        
+        
 
     // Bind Grupper List to this.gruppeVelger
     // Hvor i "#%/¤( skal vi hente denne fra?.. det må bli fra parentFlight ??

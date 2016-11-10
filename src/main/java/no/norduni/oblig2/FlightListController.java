@@ -99,13 +99,13 @@ public class FlightListController implements Initializable {
     }
 
     public Stage showFlightDialog(Flight flight) throws IOException {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Flight2.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Flight.fxml"));
 
       Stage stage = new Stage(StageStyle.DECORATED);
       stage.setScene(new Scene((Pane) loader.load()));
       stage.setTitle("Edit Flight");
 
-      FlightController2 controller = loader.<FlightController2>getController();
+      FlightController controller = loader.<FlightController>getController();
       controller.setFlight(flight);
 
       stage.show();
