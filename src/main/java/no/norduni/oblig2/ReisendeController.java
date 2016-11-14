@@ -7,6 +7,10 @@ package no.norduni.oblig2;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,6 +19,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -36,7 +42,7 @@ public class ReisendeController implements Initializable {
     private Slider reisendeAlderField;
 
     @FXML
-    private ChoiceBox<?> gruppeVelger;
+    private ChoiceBox<String> gruppeVelger;
 
     @FXML
     private RadioButton reisendeKjonnRadioMANN;
@@ -48,12 +54,16 @@ public class ReisendeController implements Initializable {
     private TextField reisendePassField;
 
     @FXML
-    private CheckBox reisendeBetalingCheckCash;
+    private RadioButton reisendeBetalingCheckCash;
 
     @FXML
-    private CheckBox reisendeBetalingCheckKort;
+    private RadioButton reisendeBetalingCheckKort;
     @FXML
     private Button closeButton;
+    @FXML
+    private ToggleGroup KjonnToggle;
+    @FXML
+    private ToggleGroup BetalingToggle;
 
     @FXML
     private void closeButtonAction(){
@@ -64,7 +74,7 @@ public class ReisendeController implements Initializable {
     }
     
     
-    
+    ObservableList<String> GruppeChoiceList = FXCollections.observableArrayList("A","B");
     
     
     
@@ -77,6 +87,7 @@ public class ReisendeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        gruppeVelger.setItems(GruppeChoiceList);
     }    
 
     public void setReisende(Reisende reisende) {
@@ -95,8 +106,43 @@ public class ReisendeController implements Initializable {
 
         this.reisendeNavnField.textProperty().bindBidirectional(this.reisende.navnProperty());
         this.reisendeAlderField.valueProperty().bindBidirectional(this.reisende.alderProperty());
-
         this.reisendePassField.textProperty().bindBidirectional(this.reisende.passnrProperty());
+
+   // Kjør på med en observable list her så er det go!     
+   //     gruppeVelger.setItems(this.flight.getGruppeProperties);
+        
+        
+        KjonnToggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+                if (KjonnToggle.getSelectedToggle() != null) {
+ 
+                    RadioButton KjonnKnapp = (RadioButton)KjonnToggle.getSelectedToggle(); // Cast object to radio button
+                     if ("KVINNE".equals(KjonnKnapp.getText())) {
+                        ReisendeController.this.reisende.setKjonn(Kjonn.KVINNE);
+                    } else {
+                        ReisendeController.this.reisende.setKjonn(Kjonn.MANN);
+                    }
+                    
+                }
+            }
+        });      
+
+        BetalingToggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+                if (BetalingToggle.getSelectedToggle() != null) {
+ 
+                    RadioButton BetalingKnapp = (RadioButton)BetalingToggle.getSelectedToggle(); // Cast object to radio button
+                     if ("CASH".equals(BetalingKnapp.getText())) {
+                        ReisendeController.this.reisende.setBetaling(new Betaling(Betalingsmetode.CASH));
+                    } else {
+                        ReisendeController.this.reisende.setBetaling(new Betaling(Betalingsmetode.KREDITT));
+                   }
+                    
+                }
+            }
+        });      
 
         
         
