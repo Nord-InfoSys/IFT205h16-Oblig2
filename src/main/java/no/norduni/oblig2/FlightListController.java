@@ -158,6 +158,8 @@ public class FlightListController implements Initializable {
 
         FlightController controller = loader.<FlightController>getController();
         controller.setFlight(flight);
+        controller.setFlighter(flighter);
+
 
         stage.show();
 
@@ -253,8 +255,12 @@ public class FlightListController implements Initializable {
             g2.setGruppeKode("LænsMainn");
             g2.addReisende(r3);
 
-            flyvning.addReisende(r1);
-            flyvning.addReisende(r2);
+            try {
+                flyvning.addReisende(r1);
+                flyvning.addReisende(r2);
+            } catch (Exception ex) {
+                Logger.getLogger(FlightListController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             flyvning.addGruppe(g1);
             flyvning.addGruppe(g2);

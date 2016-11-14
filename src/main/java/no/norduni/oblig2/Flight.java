@@ -136,8 +136,12 @@ public class Flight extends ModelBase {
         return this.getDepartureTime().plus(this.getDuration());
     }
 */    
-    public void addReisende(Reisende passasjer) {
-        this.reisende.add(passasjer);
+    public void addReisende(Reisende passasjer) throws Exception {
+        if(!this.reisende.contains(passasjer)) {
+            this.reisende.add(passasjer);
+        } else {
+            throw new Exception(passasjer+" is already present in "+this);
+        }
     }
     
     public void removeReisende(Reisende passasjer) {
@@ -216,6 +220,18 @@ public class Flight extends ModelBase {
         this.antallPlasser  = UnserializePropertyFactory.magic(ois.readInt());
         this.reisende       = UnserializePropertyFactory.list((List<Reisende>) ois.readObject());
         this.grupper        = UnserializePropertyFactory.list((List<Gruppe>) ois.readObject());
+    }
+
+    public List<Reisende> getReisendeByPassnrSearch(String search) {
+        List ret = new ArrayList();
+        
+        for(Reisende r: reisende) {
+            if(r.getPassnr().toLowerCase().contains(search.toLowerCase())) {
+                ret.add(r);
+            }
+        }
+        
+        return ret;
     }
     
 }
