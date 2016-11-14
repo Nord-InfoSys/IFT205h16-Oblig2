@@ -9,7 +9,7 @@ package no.norduni.oblig2;
  *
  * @author bubbaJ
  */
-public class Betaling {
+public class Betaling extends ModelBase {
     private Betalingsmetode metode;
 
     

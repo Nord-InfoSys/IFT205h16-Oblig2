@@ -1,9 +1,15 @@
 package no.norduni.oblig2;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,8 +38,16 @@ public class FlightListController implements Initializable {
 
     ObservableList<Flight> flighter = FXCollections.observableArrayList();
     
+    String saveFileName = "amadeus_190565";
+    
     @FXML
     private BorderPane BorderPane;
+
+    @FXML
+    private MenuItem menuFileSave;
+
+    @FXML
+    private MenuItem menuFileOpen;
 
     @FXML
     private MenuItem menuFileExit;
@@ -90,6 +104,32 @@ public class FlightListController implements Initializable {
         }
         //this.flightTableView.setItems(null);
         //this.flightTableView.setItems(flighter);
+    }
+
+    @FXML
+    private void handleFileOpenAction(ActionEvent event) {
+        try {
+            FileInputStream fin = new FileInputStream(this.saveFileName);
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            this.flighter = javafx.collections.FXCollections.observableArrayList();
+            this.flighter.setAll((List<Flight>) ois.readObject());
+            // Re-bind the TableView
+            this.flightTableView.setItems(this.flighter);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private void handleFileSaveAction(ActionEvent event) {
+        try {
+            ArrayList flightList = new ArrayList(this.flighter);
+            FileOutputStream fout = new FileOutputStream(this.saveFileName);
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(flightList);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @FXML
@@ -218,4 +258,5 @@ public class FlightListController implements Initializable {
     private void magicHoverAction(MouseEvent event) {
         //this.clickMeButton.disableProperty().setValue(Boolean.TRUE);
     }
+
 }

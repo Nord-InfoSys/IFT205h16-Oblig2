@@ -5,6 +5,9 @@
  */
 package no.norduni.oblig2;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -18,14 +21,14 @@ import javafx.beans.property.StringProperty;
  *
  * @author bubbaJ
  */
-public class Reisende {
+public class Reisende extends ModelBase {
 
-    private final BooleanProperty shavenBalls = new SimpleBooleanProperty();
-    private final StringProperty navn = new SimpleStringProperty();
-    private final IntegerProperty alder = new SimpleIntegerProperty();
-    private final StringProperty passnr = new SimpleStringProperty();
-    private final ObjectProperty<Kjonn> kjonn = new SimpleObjectProperty<>();
-    private final ObjectProperty<Betaling> betaling = new SimpleObjectProperty<>();
+    private BooleanProperty shavenBalls = new SimpleBooleanProperty();
+    private StringProperty navn = new SimpleStringProperty();
+    private IntegerProperty alder = new SimpleIntegerProperty();
+    private StringProperty passnr = new SimpleStringProperty();
+    private ObjectProperty<Kjonn> kjonn = new SimpleObjectProperty<>();
+    private ObjectProperty<Betaling> betaling = new SimpleObjectProperty<>();
 
     public Betaling getBetaling() {
         return betaling.get();
@@ -98,6 +101,26 @@ public class Reisende {
 
     public BooleanProperty shavenBallsProperty() {
         return shavenBalls;
+    }
+    
+     // Custom serialization. Cannot serialize JavaFX properties. We just serialize the contents.
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.writeBoolean(this.shavenBalls.get());
+        oos.writeObject(this.navn.get());
+        oos.writeInt(this.alder.get());
+        oos.writeObject(this.passnr.get());
+        oos.writeObject(this.kjonn.get());
+        oos.writeObject(this.betaling.get());
+    }
+
+    // Custom unserialization. Put values into their respective property wrappers.
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
+        this.shavenBalls    = UnserializePropertyFactory.magic(ois.readBoolean());
+        this.navn           = UnserializePropertyFactory.magic((String) ois.readObject());
+        this.alder          = UnserializePropertyFactory.magic(ois.readInt());
+        this.passnr         = UnserializePropertyFactory.magic((String) ois.readObject());
+        this.kjonn          = UnserializePropertyFactory.magic((Kjonn) ois.readObject());
+        this.betaling       = UnserializePropertyFactory.magic((Betaling) ois.readObject());
     }
     
 }
