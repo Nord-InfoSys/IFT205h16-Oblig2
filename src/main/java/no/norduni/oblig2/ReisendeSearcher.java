@@ -32,5 +32,8 @@ public class ReisendeSearcher {
         for(Flight f: flighter) {
             resultat.addAll(f.getReisendeByPassnrSearch(search));
         }
+        for(Reisende r: resultat) {
+            System.out.println(r.getNavn()+" "+r.getPassnr());
+        }
     }
 }

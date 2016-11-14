@@ -156,6 +156,7 @@ public class FlightListController implements Initializable {
 
       FlightController controller = loader.<FlightController>getController();
       controller.setFlight(flight);
+      controller.setFlighter(flighter);
 
       stage.show();
 

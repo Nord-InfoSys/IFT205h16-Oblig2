@@ -43,7 +43,8 @@ import jfxtras.scene.control.LocalDateTimeTextField;
 public class FlightController {
 
     private Flight flight;
-    
+    private ObservableList<Flight> flighter;
+
     @FXML
     private TextField flightNummer;
     @FXML
@@ -103,6 +104,11 @@ public class FlightController {
 
     @FXML
     private void handleImportFromFlightAction(ActionEvent event) {
+        try {
+            Stage foo = this.showReisendeSearchDialog();
+        } catch (IOException ex) {
+            Logger.getLogger(FlightController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     
@@ -259,7 +265,28 @@ public class FlightController {
       return stage;
     }
 
+    // CRUD @ Reisende
+    public Stage showReisendeSearchDialog() throws IOException {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReisendeSearch.fxml"));
+
+      Stage stage = new Stage(StageStyle.DECORATED);
+      stage.setScene(new Scene((Pane) loader.load()));
+      stage.setTitle("Søk passnummer");
+      
+      ReisendeSearchController controller = loader.<ReisendeSearchController>getController();
+      controller.setFlight(flight);
+      controller.setFlightList(flighter);
+      
+      stage.show();
+
+      return stage;
+    }
+
     
     public void initialize(URL location, ResourceBundle resources) {
+    }
+
+    void setFlighter(ObservableList<Flight> flighter) {
+        this.flighter = flighter;
     }
 }
