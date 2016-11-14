@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -148,16 +150,16 @@ public class FlightListController implements Initializable {
     }
 
     public Stage showFlightDialog(Flight flight) throws IOException {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Flight.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Flight.fxml"));
 
-      Stage stage = new Stage(StageStyle.DECORATED);
-      stage.setScene(new Scene((Pane) loader.load()));
-      stage.setTitle("Edit Flight");
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane) loader.load()));
+        stage.setTitle("Edit Flight");
 
-      FlightController controller = loader.<FlightController>getController();
-      controller.setFlight(flight);
+        FlightController controller = loader.<FlightController>getController();
+        controller.setFlight(flight);
 
-      stage.show();
+        stage.show();
 
       return stage;
     }

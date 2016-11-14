@@ -13,6 +13,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import no.norduni.oblig2.IntField?>
+<?import no.norduni.oblig2.NumberTextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import jfxtras.labs.scene.control.BigDecimalField?>
@@ -66,8 +68,9 @@
                         <Label layoutX="34.0" layoutY="194.0" prefHeight="16.0" prefWidth="120.0" text="Ankomsttid:" />
                         <LocalDateTimeTextField fx:id="arrivalTime" layoutX="160.0" layoutY="189.0" onMouseClicked="#handleDateTimeChanged" prefHeight="26.0" prefWidth="190.0" />
                         <Label layoutX="34.0" layoutY="240.0" prefHeight="16.0" prefWidth="120.0" text="Seter:" />
-                        <TextField fx:id="antallPlasser" layoutX="160.0" layoutY="235.0" prefHeight="26.0" prefWidth="80.0" />
-                        <BigDecimalField fx:id="testDecimalField" layoutX="160.0" layoutY="270.0" />
+                        <TextField fx:id="antallPlasserTextBox" layoutX="160.0" layoutY="235.0" prefHeight="26.0" prefWidth="80.0" />
+               <!--         <IntField fx:id="antallPlasserIntBox" minValue="1" maxValue='200' initialValue="55" layoutX="160.0" layoutY="235.0" prefHeight="26.0" prefWidth="80.0" /> -->
+               <!--         <NumberTextField fx:id="antallPlasserNumberTextFieldBox" layoutX="160.0" layoutY="235.0" prefHeight="26.0" prefWidth="80.0" /> -->
                      </children>
                   </AnchorPane>
             </content>

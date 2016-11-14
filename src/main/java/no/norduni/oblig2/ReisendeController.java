@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 public class ReisendeController implements Initializable {
 
     private Reisende reisende;
+    private Flight flight;
     private ObservableList<Gruppe>  grupperList;
 
     @FXML
@@ -91,27 +92,14 @@ public class ReisendeController implements Initializable {
 
     public void setReisende(Reisende reisende) {
         this.reisende = reisende;
- 
-/*
-    *    this.reisendeNavnField
-    *    this.reisendeAlderField;
-    /    this.gruppeVelger;
-        this.reisendeKjonnRadioMANN;
-        this.reisendeKjonnRadioKVINNE;
-    *    this.reisendePassField;
-        this.reisendeBetalingCheckCash;
-        this.reisendeBetalingCheckKort;
-*/
 
+        // Det vi får gratis... tar vi gratis :)
         this.reisendeNavnField.textProperty().bindBidirectional(this.reisende.navnProperty());
         this.reisendeAlderField.valueProperty().bindBidirectional(this.reisende.alderProperty());
         this.reisendePassField.textProperty().bindBidirectional(this.reisende.passnrProperty());
 
-   // Kjør på med en observable list her så er det go!     
-   //     gruppeVelger.setItems(this.flight.getGruppeProperties);
         
-   
-   
+        
         // Set rett verdi på radibutton dersom verdien finnes
         try {
             if(this.reisende.getKjonn().toString().equals(reisendeKjonnRadioMANN.getText()) && this.reisende.getKjonn().toString() != null) {
@@ -123,20 +111,7 @@ public class ReisendeController implements Initializable {
                 System.out.println("Håper noen finner ut av kjønnet til slutt..");
         }
                 
-        // Set rett verdi på radiobutton dersom betalingsObjektet er opprettet
-        try {
-            if(this.reisende.getBetaling().toString() != null) {
-                if(this.reisende.getBetaling().toString().equals(reisendeBetalingCheckCash.getText()) && this.reisende.getBetaling().toString() != null) {
-                    this.reisendeBetalingCheckCash.setSelected(true);
-                } else {
-                    this.reisendeBetalingCheckKort.setSelected(true);
-                }
-            }
-        } catch (NullPointerException e) {
-                System.out.println("Kastet hansken, verdien er ikke satt");
-        }
-
-
+        // Oppdater kjønn dersom denne endrer seg (burde være relativt sjelden, da kjønnsskifteopperasjoner ikke er _veldig_ vanlig.
         KjonnToggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
@@ -152,6 +127,22 @@ public class ReisendeController implements Initializable {
             }
         });      
 
+        
+        // Set rett verdi på radiobutton dersom betalingsObjektet er opprettet
+        try {
+            if(this.reisende.getBetaling().toString() != null) {
+                if(this.reisende.getBetaling().toString().equals(reisendeBetalingCheckCash.getText()) && this.reisende.getBetaling().toString() != null) {
+                    this.reisendeBetalingCheckCash.setSelected(true);
+                } else {
+                    this.reisendeBetalingCheckKort.setSelected(true);
+                }
+            }
+        } catch (NullPointerException e) {
+                System.out.println("Kastet hansken, verdien er ikke satt");
+        }
+
+
+        // Oppdater betalingsmetode dersom denne endres.
         BetalingToggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
@@ -168,6 +159,34 @@ public class ReisendeController implements Initializable {
         });      
 
         
+
+        
+        // Set rett verdi i dropDown dersom gruppe er satt
+        try {
+            if(this.reisende.getGruppe() != null) {
+            //    gruppeVelger.setValue(this.reisende.getGruppe());
+            //    this.flight.getGruppeIndexSet(this.reisende.getGruppe());
+            //    gruppeVelger.getSelectionModel().select(0);
+             }
+        } catch (Exception e) {
+                System.out.println("FucMei" + e);
+        }
+
+
+        // EvesDropping @ gruppeValg
+        gruppeVelger.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number old_gruppe, Number new_gruppe) {
+                if (gruppeVelger.getSelectionModel().selectedIndexProperty() != null) {
+
+                    // Oppdater den reisende med rett gruppe
+                    ReisendeController.this.reisende.setGruppe(ReisendeController.this.flight.getGruppeByIndex((Integer) new_gruppe));
+                    // System.out.println(gruppeVelger.getItems().get((Integer) new_gruppe));
+                }
+            }
+        });      
+        
+        
         
 
     // Bind Grupper List to this.gruppeVelger
@@ -175,7 +194,13 @@ public class ReisendeController implements Initializable {
 //    this.gruppeVelger.setItems(this.flight.getGrupper());
         
     }
-
+ 
+    void setFlight(Flight flight) {
+        this.flight = flight;
+        gruppeVelger.setItems(this.grupperList);
+        this.setGroupList(this.flight.getGrupper());
+    }
+    
     void setGroupList(ObservableList<Gruppe> grupper) {
         this.grupperList = grupper;
         gruppeVelger.setItems(this.grupperList);

@@ -98,6 +98,7 @@ public class Reisende extends ModelBase {
 
     public void setGruppe(Gruppe value) {
         gruppe.set(value);
+        gruppe.getValue().addReisende(this);
     }
 
     public ObjectProperty gruppeProperty() {

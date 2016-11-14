@@ -17,22 +17,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML ;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField ;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import jfxtras.labs.scene.control.BigDecimalField;
 import jfxtras.scene.control.LocalDateTimeTextField;
 
 
@@ -50,7 +46,6 @@ public class FlightController {
     private TextField origin;
     @FXML
     private TextField destination;
-    @FXML
     private TextField antallPlasser;
     @FXML
     private TableView passengerTable;
@@ -65,9 +60,9 @@ public class FlightController {
     @FXML
     private MenuItem menuFileExit;
     @FXML
-    private BigDecimalField testDecimalField;
-    @FXML
     private MenuBar menuBar;
+    @FXML
+    private TextField antallPlasserTextBox;
     @FXML
     private void closeButtonAction(){
         // get a handle to the stage
@@ -152,13 +147,24 @@ public class FlightController {
         this.destination.textProperty().bindBidirectional(this.flight.destinationProperty());
         this.departureTime.localDateTimeProperty().bindBidirectional(this.flight.departureTimeProperty());
         this.arrivalTime.localDateTimeProperty().bindBidirectional(this.flight.arrivalTimeProperty());
+ //       this.antallPlasserValg.getNumber().bindBidirectional(this.flight.antallPlasserProperty());
+    //    this.antallPlasserTextBox.getTextFormatter().
+ 
 
-        // Set CellValueFactory for each column.
-        // The ID on each column is named the same as the property names on the model object.
-        // PropertyValueFactory will try to fetch the property by .nameProperty() automagically.
-        // It will revert to .getName() if the model does not have .nameProperty()
+    
+        IntField aa = new IntField(1,150,55);
 
         
+        // Integer Only på Antall seter
+        antallPlasserTextBox.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    antallPlasserTextBox.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });                
+                
         this.passengerTable.setRowFactory(tv -> {
             TableRow<Reisende> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -236,7 +242,7 @@ public class FlightController {
      
       ReisendeController controller = loader.<ReisendeController>getController();
       controller.setReisende(reisende);
-      controller.setGroupList(this.flight.getGrupper());
+      controller.setFlight(this.flight);
 
      
       stage.show();
