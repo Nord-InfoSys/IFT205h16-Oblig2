@@ -27,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jfxtras.labs.scene.control.BigDecimalField;
 import jfxtras.scene.control.LocalDateTimeTextField;
 
 
@@ -58,6 +59,8 @@ public class FlightController {
     private javafx.scene.control.Button closeButton;
     @FXML
     private MenuItem menuFileExit;
+    @FXML
+    private BigDecimalField testDecimalField;
     @FXML
     private void closeButtonAction(){
         // get a handle to the stage
@@ -117,20 +120,6 @@ public class FlightController {
         this.flight.removeGruppe(this.flight.getGruppeByIndex(this.groupTable.getSelectionModel().getSelectedIndex()));
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     void handleFlightNrChanged(InputMethodEvent event) {
  //       this.flight.setFlightNummer(this.flightnr.getText());

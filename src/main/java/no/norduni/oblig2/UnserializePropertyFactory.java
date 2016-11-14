@@ -6,7 +6,6 @@
 package no.norduni.oblig2;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
