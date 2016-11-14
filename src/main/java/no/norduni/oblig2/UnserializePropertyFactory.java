@@ -63,6 +63,12 @@ public class UnserializePropertyFactory {
         return ret;
     }
 
+    public static SimpleObjectProperty magic(Gruppe v) throws IOException, ClassNotFoundException  {
+        SimpleObjectProperty ret = new SimpleObjectProperty();
+        ret.set((Gruppe) v);
+        return ret;
+    }
+
     public static ObservableList list(List l) {
         ObservableList ret = javafx.collections.FXCollections.observableArrayList();
         ret.setAll(l);

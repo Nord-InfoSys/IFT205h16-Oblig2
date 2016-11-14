@@ -29,6 +29,7 @@ public class Reisende extends ModelBase {
     private StringProperty passnr = new SimpleStringProperty();
     private ObjectProperty<Kjonn> kjonn = new SimpleObjectProperty<>();
     private ObjectProperty<Betaling> betaling = new SimpleObjectProperty<>();
+    private ObjectProperty<Gruppe> gruppe = new SimpleObjectProperty<>();
 
     public Betaling getBetaling() {
         return betaling.get();
@@ -91,6 +92,18 @@ public class Reisende extends ModelBase {
         return navn;
     }
 
+    public Gruppe getGruppe() {
+        return gruppe.get();
+    }
+
+    public void setGruppe(Gruppe value) {
+        gruppe.set(value);
+    }
+
+    public ObjectProperty gruppeProperty() {
+        return gruppe;
+    }
+
     public boolean isShavenBalls() {
         return shavenBalls.get();
     }
@@ -111,6 +124,7 @@ public class Reisende extends ModelBase {
         oos.writeObject(this.passnr.get());
         oos.writeObject(this.kjonn.get());
         oos.writeObject(this.betaling.get());
+        oos.writeObject(this.gruppe.get());
     }
 
     // Custom unserialization. Put values into their respective property wrappers.
@@ -121,6 +135,7 @@ public class Reisende extends ModelBase {
         this.passnr         = UnserializePropertyFactory.magic((String) ois.readObject());
         this.kjonn          = UnserializePropertyFactory.magic((Kjonn) ois.readObject());
         this.betaling       = UnserializePropertyFactory.magic((Betaling) ois.readObject());
+        this.gruppe         = UnserializePropertyFactory.magic((Gruppe) ois.readObject());
     }
     
 }

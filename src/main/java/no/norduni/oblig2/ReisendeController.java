@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 public class ReisendeController implements Initializable {
 
     private Reisende reisende;
+    private ObservableList<Gruppe>  grupperList;
 
     @FXML
     private GridPane reisendeView;
@@ -42,7 +43,7 @@ public class ReisendeController implements Initializable {
     private Slider reisendeAlderField;
 
     @FXML
-    private ChoiceBox<String> gruppeVelger;
+    private ChoiceBox<Gruppe> gruppeVelger;
 
     @FXML
     private RadioButton reisendeKjonnRadioMANN;
@@ -74,8 +75,7 @@ public class ReisendeController implements Initializable {
     }
     
     
-    ObservableList<String> GruppeChoiceList = FXCollections.observableArrayList("A","B");
-    
+
     
     
     
@@ -87,7 +87,6 @@ public class ReisendeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        gruppeVelger.setItems(GruppeChoiceList);
     }    
 
     public void setReisende(Reisende reisende) {
@@ -111,7 +110,33 @@ public class ReisendeController implements Initializable {
    // Kjør på med en observable list her så er det go!     
    //     gruppeVelger.setItems(this.flight.getGruppeProperties);
         
-        
+   
+   
+        // Set rett verdi på radibutton dersom verdien finnes
+        try {
+            if(this.reisende.getKjonn().toString().equals(reisendeKjonnRadioMANN.getText()) && this.reisende.getKjonn().toString() != null) {
+                this.reisendeKjonnRadioMANN.setSelected(true);
+            } else {
+                this.reisendeKjonnRadioKVINNE.setSelected(true);
+            }
+        } catch (NullPointerException e) {
+                System.out.println("Håper noen finner ut av kjønnet til slutt..");
+        }
+                
+        // Set rett verdi på radiobutton dersom betalingsObjektet er opprettet
+        try {
+            if(this.reisende.getBetaling().toString() != null) {
+                if(this.reisende.getBetaling().toString().equals(reisendeBetalingCheckCash.getText()) && this.reisende.getBetaling().toString() != null) {
+                    this.reisendeBetalingCheckCash.setSelected(true);
+                } else {
+                    this.reisendeBetalingCheckKort.setSelected(true);
+                }
+            }
+        } catch (NullPointerException e) {
+                System.out.println("Kastet hansken, verdien er ikke satt");
+        }
+
+
         KjonnToggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
@@ -123,7 +148,6 @@ public class ReisendeController implements Initializable {
                     } else {
                         ReisendeController.this.reisende.setKjonn(Kjonn.MANN);
                     }
-                    
                 }
             }
         });      
@@ -139,8 +163,7 @@ public class ReisendeController implements Initializable {
                     } else {
                         ReisendeController.this.reisende.setBetaling(new Betaling(Betalingsmetode.KREDITT));
                    }
-                    
-                }
+                 }
             }
         });      
 
@@ -151,5 +174,10 @@ public class ReisendeController implements Initializable {
     // Hvor i "#%/¤( skal vi hente denne fra?.. det må bli fra parentFlight ??
 //    this.gruppeVelger.setItems(this.flight.getGrupper());
         
+    }
+
+    void setGroupList(ObservableList<Gruppe> grupper) {
+        this.grupperList = grupper;
+        gruppeVelger.setItems(this.grupperList);
     }
 }
