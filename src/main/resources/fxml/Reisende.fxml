@@ -3,17 +3,16 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.norduni.oblig2.ReisendeController">
    <center>
@@ -43,11 +42,17 @@
             <Label text="Betaling" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Gruppe" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ChoiceBox fx:id="gruppeVelger" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <RadioButton fx:id="reisendeKjonnRadioMANN" mnemonicParsing="false" selected="true" text="Mann" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <RadioButton fx:id="reisendeKjonnRadioKVINNE" contentDisplay="RIGHT" mnemonicParsing="false" text="Kvinne" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <RadioButton fx:id="reisendeKjonnRadioMANN" mnemonicParsing="false" selected="true" text="MANN" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <toggleGroup>
+                  <ToggleGroup fx:id="KjonnToggle" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="reisendeKjonnRadioKVINNE" contentDisplay="RIGHT" mnemonicParsing="false" text="KVINNE" toggleGroup="$KjonnToggle" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <TextField fx:id="reisendePassField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <CheckBox fx:id="reisendeBetalingCheckCash" mnemonicParsing="false" text="Cash" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <CheckBox fx:id="reisendeBetalingCheckKort" mnemonicParsing="false" text="Kort" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <RadioButton fx:id="reisendeBetalingCheckCash" mnemonicParsing="false" text="Cash" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <toggleGroup>
+                  <ToggleGroup fx:id="BetalingToggle" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="reisendeBetalingCheckKort" mnemonicParsing="false" text="Kort" toggleGroup="$BetalingToggle" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </center>

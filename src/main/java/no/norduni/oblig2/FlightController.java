@@ -10,6 +10,8 @@ import java.net.*;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML ;
@@ -21,6 +23,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField ;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
@@ -229,6 +233,7 @@ public class FlightController {
       stage.setScene(new Scene((Pane) loader.load()));
       stage.setTitle("Edit Reisende");
 
+      
       ReisendeController controller = loader.<ReisendeController>getController();
       controller.setReisende(reisende);
 
@@ -238,7 +243,7 @@ public class FlightController {
     }
 
     
-// CRUD @ Reisende
+// CRUD @ Grupper
     public Stage showGruppeDialog(Gruppe gruppe) throws IOException {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Gruppe.fxml"));
 
@@ -250,7 +255,7 @@ public class FlightController {
       controller.setGruppe(gruppe);
 
       stage.show();
-
+      
       return stage;
     }
 
