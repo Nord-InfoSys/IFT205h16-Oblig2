@@ -217,5 +217,17 @@ public class Flight extends ModelBase {
         this.reisende       = UnserializePropertyFactory.list((List<Reisende>) ois.readObject());
         this.grupper        = UnserializePropertyFactory.list((List<Gruppe>) ois.readObject());
     }
+
+    public List<Reisende> getReisendeByPassnrSearch(String search) {
+        List ret = new ArrayList();
+        
+        for(Reisende r: reisende) {
+            if(r.getPassnr().toLowerCase().contains(search.toLowerCase())) {
+                ret.add(r);
+            }
+        }
+        
+        return ret;
+    }
     
 }
