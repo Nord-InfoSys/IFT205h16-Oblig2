@@ -1,6 +1,7 @@
 package no.norduni.oblig2;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -47,7 +48,7 @@ public class FlightListController implements Initializable {
     private MenuItem menuFileSave;
 
     @FXML
-    private MenuItem menuFileOpen;
+    private MenuItem menuFileLoad;
 
     @FXML
     private MenuItem menuFileExit;
@@ -106,17 +107,23 @@ public class FlightListController implements Initializable {
         //this.flightTableView.setItems(flighter);
     }
 
+    private void loadFlightsFromFile() throws FileNotFoundException, IOException, ClassNotFoundException {
+        FileInputStream fin = new FileInputStream(this.saveFileName);
+        ObjectInputStream ois = new ObjectInputStream(fin);
+        this.flighter = javafx.collections.FXCollections.observableArrayList();
+        this.flighter.setAll((List<Flight>) ois.readObject());
+        // Re-bind the TableView
+        this.flightTableView.setItems(this.flighter);
+    }
+    
     @FXML
-    private void handleFileOpenAction(ActionEvent event) {
+    private void handleFileLoadAction(ActionEvent event) {
         try {
-            FileInputStream fin = new FileInputStream(this.saveFileName);
-            ObjectInputStream ois = new ObjectInputStream(fin);
-            this.flighter = javafx.collections.FXCollections.observableArrayList();
-            this.flighter.setAll((List<Flight>) ois.readObject());
-            // Re-bind the TableView
-            this.flightTableView.setItems(this.flighter);
+            this.loadFlightsFromFile();
+            System.out.println("Åpning komplett...");
         } catch (Exception e) {
             System.out.println(e);
+            System.out.println("Åpning feilet...");
         }
     }
 
@@ -127,8 +134,10 @@ public class FlightListController implements Initializable {
             FileOutputStream fout = new FileOutputStream(this.saveFileName);
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(flightList);
+            System.out.println("Lagring komplett...");
         } catch (Exception e) {
             System.out.println(e);
+            System.out.println("Lagring feilet...");
         }
     }
 
@@ -198,52 +207,59 @@ public class FlightListController implements Initializable {
     }
     
     private void bootstrapModelData() {
+        try {
+            this.loadFlightsFromFile();
+            System.out.println("Åpning komplett...");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Åpning feilet... Laster inn default data...");
 
-        Flight flyvning = new Flight();
-        flyvning.setFlightNummer("WF747");
-        flyvning.setDestination("MQN");
-        flyvning.setOrigin("TRD");
-        flyvning.setDepartureTime(LocalDateTime.now());
-        flyvning.setArrivalTime(LocalDateTime.now().plusMinutes(5));
-        flyvning.setDuration(Duration.ofSeconds(300));
-        flyvning.setAntallPlasser(35);        
- 
-        
-        Reisende r1 = new Reisende();
-        r1.setNavn("Ola Dunk");
-        r1.setKjonn(Kjonn.MANN);
-        r1.setAlder(34);
-        r1.setPassnr("87654321");
-        
-        Reisende r2 = new Reisende();
-        r2.setNavn("Kari Dunk");
-        r2.setKjonn(Kjonn.KVINNE);
-        r2.setAlder(33);
-        r2.setPassnr("2344234");
-         
-        Reisende r3 = new Reisende();
-        r3.setNavn("P. Mester Fix");
-        r3.setKjonn(Kjonn.MANN);
-        r3.setAlder(44);
-        r3.setPassnr("8976543");
-         
-        Gruppe g1 = new Gruppe();
-        g1.setGruppeKode("42");
-        g1.addReisende(r1);
-        g1.addReisende(r2);
+            Flight flyvning = new Flight();
+            flyvning.setFlightNummer("WF747");
+            flyvning.setDestination("MQN");
+            flyvning.setOrigin("TRD");
+            flyvning.setDepartureTime(LocalDateTime.now());
+            flyvning.setArrivalTime(LocalDateTime.now().plusMinutes(5));
+            flyvning.setDuration(Duration.ofSeconds(300));
+            flyvning.setAntallPlasser(35);        
 
-        Gruppe g2 = new Gruppe();
-        g2.setGruppeKode("LænsMainn");
-        g2.addReisende(r3);
-        
-        flyvning.addReisende(r1);
-        flyvning.addReisende(r2);
-        
-        flyvning.addGruppe(g1);
-        flyvning.addGruppe(g2);
-        
-        flighter.add(flyvning);
 
+            Reisende r1 = new Reisende();
+            r1.setNavn("Ola Dunk");
+            r1.setKjonn(Kjonn.MANN);
+            r1.setAlder(34);
+            r1.setPassnr("87654321");
+
+            Reisende r2 = new Reisende();
+            r2.setNavn("Kari Dunk");
+            r2.setKjonn(Kjonn.KVINNE);
+            r2.setAlder(33);
+            r2.setPassnr("2344234");
+
+            Reisende r3 = new Reisende();
+            r3.setNavn("P. Mester Fix");
+            r3.setKjonn(Kjonn.MANN);
+            r3.setAlder(44);
+            r3.setPassnr("8976543");
+
+            Gruppe g1 = new Gruppe();
+            g1.setGruppeKode("42");
+            g1.addReisende(r1);
+            g1.addReisende(r2);
+
+            Gruppe g2 = new Gruppe();
+            g2.setGruppeKode("LænsMainn");
+            g2.addReisende(r3);
+
+            flyvning.addReisende(r1);
+            flyvning.addReisende(r2);
+
+            flyvning.addGruppe(g1);
+            flyvning.addGruppe(g2);
+
+            flighter.add(flyvning);
+
+        }
     }
 
     public void updateFlightList() {
