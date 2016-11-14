@@ -233,10 +233,12 @@ public class FlightController {
       stage.setScene(new Scene((Pane) loader.load()));
       stage.setTitle("Edit Reisende");
 
-      
+     
       ReisendeController controller = loader.<ReisendeController>getController();
       controller.setReisende(reisende);
+      controller.setGroupList(this.flight.getGrupper());
 
+     
       stage.show();
 
       return stage;

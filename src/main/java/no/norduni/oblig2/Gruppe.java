@@ -85,5 +85,9 @@ public class Gruppe extends ModelBase {
         this.reisende       = UnserializePropertyFactory.list((List<Reisende>) ois.readObject());
     }
    
+    @Override
+    public String toString() {
+        return this.getGruppeKode();
+    }
 }
 

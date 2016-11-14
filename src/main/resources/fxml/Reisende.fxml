@@ -42,13 +42,13 @@
             <Label text="Betaling" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Gruppe" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ChoiceBox fx:id="gruppeVelger" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <RadioButton fx:id="reisendeKjonnRadioMANN" mnemonicParsing="false" selected="true" text="MANN" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <RadioButton fx:id="reisendeKjonnRadioMANN" mnemonicParsing="false" text="MANN" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <toggleGroup>
                   <ToggleGroup fx:id="KjonnToggle" />
                </toggleGroup></RadioButton>
             <RadioButton fx:id="reisendeKjonnRadioKVINNE" contentDisplay="RIGHT" mnemonicParsing="false" text="KVINNE" toggleGroup="$KjonnToggle" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <TextField fx:id="reisendePassField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <RadioButton fx:id="reisendeBetalingCheckCash" mnemonicParsing="false" selected="true" text="CASH" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <RadioButton fx:id="reisendeBetalingCheckCash" mnemonicParsing="false" text="CASH" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <toggleGroup>
                   <ToggleGroup fx:id="BetalingToggle" />
                </toggleGroup></RadioButton>
