@@ -18,6 +18,7 @@ import javafx.fxml.FXML ;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -65,6 +66,8 @@ public class FlightController {
     private MenuItem menuFileExit;
     @FXML
     private BigDecimalField testDecimalField;
+    @FXML
+    private MenuBar menuBar;
     @FXML
     private void closeButtonAction(){
         // get a handle to the stage
@@ -135,6 +138,14 @@ public class FlightController {
 
     public void setFlight(Flight flight) {
         this.flight = flight;
+
+        // Meny i topplinjen på macOS
+        final String os = System.getProperty ("os.name");
+        System.out.println(os);
+        if (os != null && os.startsWith ("Mac")) {
+          this.menuBar.useSystemMenuBarProperty().set(true);
+          System.out.println("(Big)Mac-meny");
+        }
  
         this.flightNummer.textProperty().bindBidirectional(this.flight.flightNummerProperty());
         this.origin.textProperty().bindBidirectional(this.flight.originProperty());
@@ -250,6 +261,5 @@ public class FlightController {
 
     
     public void initialize(URL location, ResourceBundle resources) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
