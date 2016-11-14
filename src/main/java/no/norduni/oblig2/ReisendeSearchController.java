@@ -7,10 +7,14 @@ package no.norduni.oblig2;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -45,13 +49,17 @@ public class ReisendeSearchController implements Initializable {
 
 
     public void setFlightList(ObservableList<Flight> flightList) {
-        ObservableList<Flight> fl = javafx.collections.FXCollections.observableArrayList();
-        // Filter out the current flight, we're not searching our existing passenger
-        for(Flight f: flightList) {
-            if(f != this.flight)
-                fl.add(f);
-        }
-        this.mySearcher.setFlighter(fl);
+        this.mySearcher.setFlighter(flightList);
+//        ObservableList<Flight> fl = javafx.collections.FXCollections.observableArrayList();
+//        // Filter out the current flight, we're not searching our existing passenger
+//        for(Flight f: flightList) {
+//            if(f != this.flight) {
+//                fl.add(f);
+//            } else {
+//                System.out.println("Legger ikke til: "+f);
+//            }
+//        }
+//        this.mySearcher.setFlighter(fl);
     }
 
     public void setFlight(Flight flight) {
@@ -68,17 +76,28 @@ public class ReisendeSearchController implements Initializable {
             }
         }
     }
-
     
-    
-
     @FXML
     private void handleVelgButton(ActionEvent event) {
         Reisende r = (Reisende)this.resultsTable.getSelectionModel().getSelectedItem();
-        this.flight.addReisende(r);
+        
+        if(this.flight.getReisende().contains(r)) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informasjon");
+            alert.setHeaderText("Informasjon");
+            alert.setContentText("Valgt passasjer er allerede på flyet");
 
-        Stage stage = (Stage) searchField.getScene().getWindow();
-        stage.close();
+            alert.showAndWait();            
+        } else {
+            try {
+                this.flight.addReisende(r);
+            } catch (Exception ex) {
+                Logger.getLogger(ReisendeSearchController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Stage stage = (Stage) searchField.getScene().getWindow();
+            stage.close();
+        }
     }
 
     @FXML

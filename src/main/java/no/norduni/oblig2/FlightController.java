@@ -87,8 +87,12 @@ public class FlightController {
         Reisende reisende = new Reisende();
         reisende.setNavn("-");
         
-        this.flight.addReisende(reisende);
-        this.showReisendeDialog(reisende);
+        try {
+            this.flight.addReisende(reisende);
+            this.showReisendeDialog(reisende);
+        } catch (Exception ex) {
+            Logger.getLogger(FlightController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
  
     @FXML

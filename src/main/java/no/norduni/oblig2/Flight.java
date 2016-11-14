@@ -136,8 +136,12 @@ public class Flight extends ModelBase {
         return this.getDepartureTime().plus(this.getDuration());
     }
 */    
-    public void addReisende(Reisende passasjer) {
-        this.reisende.add(passasjer);
+    public void addReisende(Reisende passasjer) throws Exception {
+        if(!this.reisende.contains(passasjer)) {
+            this.reisende.add(passasjer);
+        } else {
+            throw new Exception(passasjer+" is already present in "+this);
+        }
     }
     
     public void removeReisende(Reisende passasjer) {
