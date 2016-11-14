@@ -30,7 +30,10 @@ public class ReisendeSearcher {
     public void searchPassnr(String search) {
         resultat.clear();
         for(Flight f: flighter) {
-            resultat.addAll(f.getReisendeByPassnrSearch(search));
+            for(Reisende r: f.getReisendeByPassnrSearch(search)) {
+                if(!resultat.contains(r))
+                    resultat.add(r);
+            }
         }
         for(Reisende r: resultat) {
             System.out.println(r.getNavn()+" "+r.getPassnr());
