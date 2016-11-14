@@ -3,6 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -14,22 +18,34 @@
 <?import jfxtras.scene.control.LocalDateTimeTextField?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.norduni.oblig2.FlightController">
-   <bottom>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #DDD;" BorderPane.alignment="CENTER">
-        <buttons>
-          <Button alignment="CENTER" mnemonicParsing="false" text="Ny reisende" onAction="#handleAddReisendeAction" fx:id="addReisendeButton"/>
-          <Button alignment="CENTER" mnemonicParsing="false" text="Slett valgt" onAction="#handleDeleteReisendeAction" fx:id="deleteReisendeButton"/>
-          <Button alignment="CENTER" mnemonicParsing="false" text="Lukk" onAction="#closeButtonAction" fx:id="closeButton"/>
-        </buttons>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <padding>
-            <Insets right="10.0" />
-         </padding>
-      </ButtonBar>
-   </bottom>
    <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Flight">
+            <items>
+              <MenuItem fx:id="menuFileExit" mnemonicParsing="false" onAction="#closeButtonAction" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Passasjerer">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleAddReisendeAction" text="Opprett ny" />
+              <MenuItem mnemonicParsing="false" onAction="#handleEditReisendeAction" text="Endre valgt" />
+              <MenuItem mnemonicParsing="false" onAction="#handleDeleteReisendeAction" text="Slett valgt" />
+              <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" onAction="#handleImportFromFlightAction" text="Importer fra annen flight" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Grupper">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleAddGruppeAction" text="Opprett ny" />
+              <MenuItem mnemonicParsing="false" onAction="#handleEditGruppeAction" text="Endre valgt" />
+              <MenuItem mnemonicParsing="false" onAction="#handleDeleteGruppeAction" text="Slett valgt" />
+             </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
       <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="FlightData">
@@ -88,5 +104,18 @@
             </Tab>
         </tabs>
       </TabPane>
-   </top>
+   </center>
+   <bottom>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #DDD;" BorderPane.alignment="CENTER">
+        <buttons>
+          <Button alignment="CENTER" mnemonicParsing="false" text="Lukk" onAction="#closeButtonAction" fx:id="closeButton"/>
+        </buttons>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </ButtonBar>
+   </bottom>
 </BorderPane>

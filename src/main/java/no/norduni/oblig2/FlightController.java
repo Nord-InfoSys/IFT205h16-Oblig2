@@ -16,6 +16,7 @@ import javafx.fxml.FXML ;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -56,9 +57,7 @@ public class FlightController {
     @FXML
     private javafx.scene.control.Button closeButton;
     @FXML
-    private Button addReisendeButton;
-    @FXML
-    private Button deleteReisendeButton;
+    private MenuItem menuFileExit;
     @FXML
     private void closeButtonAction(){
         // get a handle to the stage
@@ -82,9 +81,57 @@ public class FlightController {
     }
  
     @FXML
+    private void handleEditReisendeAction(ActionEvent event) throws IOException {
+        Reisende rowData = this.flight.getReisendeByIndex(this.passengerTable.getSelectionModel().getSelectedIndex());
+        this.showReisendeDialog(rowData);
+    }
+    
+    @FXML
     private void handleDeleteReisendeAction(ActionEvent event) {
+        this.flight.removeReisende(this.flight.getReisendeByIndex(this.passengerTable.getSelectionModel().getSelectedIndex()));
     }
 
+    @FXML
+    private void handleImportFromFlightAction(ActionEvent event) {
+    }
+
+    
+    
+    @FXML
+    private void handleAddGruppeAction(ActionEvent event) throws IOException {
+        Gruppe gruppe = new Gruppe();
+        gruppe.setGruppeKode("-");
+        
+        this.flight.addGruppe(gruppe);
+        this.showGruppeDialog(gruppe);
+    }
+
+    @FXML
+    private void handleEditGruppeAction(ActionEvent event) throws IOException {
+        Gruppe rowData = this.flight.getGruppeByIndex(this.groupTable.getSelectionModel().getSelectedIndex());
+        this.showGruppeDialog(rowData);
+    }
+
+    @FXML
+    private void handleDeleteGruppeAction(ActionEvent event) {
+        this.flight.removeGruppe(this.flight.getGruppeByIndex(this.groupTable.getSelectionModel().getSelectedIndex()));
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     void handleFlightNrChanged(InputMethodEvent event) {
  //       this.flight.setFlightNummer(this.flightnr.getText());
     }
@@ -115,6 +162,23 @@ public class FlightController {
                     try {
                         Reisende rowData = row.getItem();
                         this.showReisendeDialog(rowData);
+                        System.out.println(rowData);
+                    } catch (IOException ex) {
+                        Logger.getLogger(FlightController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            return row ;
+        });
+
+
+        this.groupTable.setRowFactory(tv -> {
+            TableRow<Gruppe> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    try {
+                        Gruppe rowData = row.getItem();
+                        this.showGruppeDialog(rowData);
                         System.out.println(rowData);
                     } catch (IOException ex) {
                         Logger.getLogger(FlightController.class.getName()).log(Level.SEVERE, null, ex);
@@ -174,8 +238,24 @@ public class FlightController {
     }
 
     
+// CRUD @ Reisende
+    public Stage showGruppeDialog(Gruppe gruppe) throws IOException {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Gruppe.fxml"));
+
+      Stage stage = new Stage(StageStyle.DECORATED);
+      stage.setScene(new Scene((Pane) loader.load()));
+      stage.setTitle("Edit Reisegruppe");
+
+      GruppeController controller = loader.<GruppeController>getController();
+      controller.setGruppe(gruppe);
+
+      stage.show();
+
+      return stage;
+    }
+
+    
     public void initialize(URL location, ResourceBundle resources) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

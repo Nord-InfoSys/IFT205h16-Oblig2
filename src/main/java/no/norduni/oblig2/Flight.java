@@ -140,6 +140,10 @@ public class Flight extends ModelBase {
         this.reisende.add(passasjer);
     }
     
+    public void removeReisende(Reisende passasjer) {
+        this.reisende.remove(passasjer);
+    }
+    
     public int getAntallBooket() {
         return this.reisende.size();
     }
@@ -182,6 +186,10 @@ public class Flight extends ModelBase {
   
     public void addGruppe(Gruppe g) {
         this.grupper.add(g);
+    }
+
+   public void removeGruppe(Gruppe gruppe) {
+        this.grupper.remove(gruppe);
     }
     
      // Custom serialization. Cannot serialize JavaFX properties. We just serialize the contents.

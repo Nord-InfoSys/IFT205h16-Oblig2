@@ -49,7 +49,7 @@ public class GruppeController implements Initializable {
         // TODO
     }    
 
-    public void setReisende(Gruppe gruppe) {
+    public void setGruppe(Gruppe gruppe) {
         this.gruppe = gruppe;
         this.gruppeNavnField.textProperty().bindBidirectional(this.gruppe.gruppeKodeProperty());
         
