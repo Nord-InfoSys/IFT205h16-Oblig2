@@ -48,11 +48,11 @@
                </toggleGroup></RadioButton>
             <RadioButton fx:id="reisendeKjonnRadioKVINNE" contentDisplay="RIGHT" mnemonicParsing="false" text="KVINNE" toggleGroup="$KjonnToggle" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <TextField fx:id="reisendePassField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <RadioButton fx:id="reisendeBetalingCheckCash" mnemonicParsing="false" text="Cash" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <RadioButton fx:id="reisendeBetalingCheckCash" mnemonicParsing="false" selected="true" text="CASH" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <toggleGroup>
                   <ToggleGroup fx:id="BetalingToggle" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="reisendeBetalingCheckKort" mnemonicParsing="false" text="Kort" toggleGroup="$BetalingToggle" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <RadioButton fx:id="reisendeBetalingCheckKort" mnemonicParsing="false" text="KREDITT" toggleGroup="$BetalingToggle" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </center>
