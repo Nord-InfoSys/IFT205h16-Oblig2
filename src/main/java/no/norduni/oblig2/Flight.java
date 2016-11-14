@@ -5,7 +5,12 @@
  */
 package no.norduni.oblig2;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import javafx.beans.property.*;
@@ -15,16 +20,16 @@ import javafx.collections.ObservableList;
  *
  * @author bubbjaJ
  */
-public class Flight {
-    private final SimpleStringProperty                flightNummer;
-    private final SimpleStringProperty                origin;
-    private final SimpleStringProperty                destination;
-    private final SimpleObjectProperty<LocalDateTime> departureTime;
-    private final SimpleObjectProperty<LocalDateTime> arrivalTime;
-    private final SimpleObjectProperty<Duration>      duration;
-    private final SimpleIntegerProperty               antallPlasser;
-    private final ObservableList<Reisende>            reisende;
-    private       ObservableList<Gruppe>              grupper;
+public class Flight extends ModelBase {
+    private SimpleStringProperty                flightNummer;
+    private SimpleStringProperty                origin;
+    private SimpleStringProperty                destination;
+    private SimpleObjectProperty<LocalDateTime> departureTime;
+    private SimpleObjectProperty<LocalDateTime> arrivalTime;
+    private SimpleObjectProperty<Duration>      duration;
+    private SimpleIntegerProperty               antallPlasser;
+    private ObservableList<Reisende>            reisende;
+    private ObservableList<Gruppe>              grupper;
 
     public Flight() {
         this.flightNummer   = new SimpleStringProperty("");
@@ -186,4 +191,31 @@ public class Flight {
    public void removeGruppe(Gruppe gruppe) {
         this.grupper.remove(gruppe);
     }
+    
+     // Custom serialization. Cannot serialize JavaFX properties. We just serialize the contents.
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.writeObject(this.flightNummer.get());
+        oos.writeObject(this.origin.get());
+        oos.writeObject(this.destination.get());
+        oos.writeObject(this.departureTime.get());
+        oos.writeObject(this.arrivalTime.get());
+        oos.writeObject(this.duration.get());
+        oos.writeInt(this.antallPlasser.get());
+        oos.writeObject(new ArrayList<>(this.reisende));
+        oos.writeObject(new ArrayList<>(this.grupper));
+    }
+
+    // Custom unserialization. Put values into their respective property wrappers.
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
+        this.flightNummer   = UnserializePropertyFactory.magic((String) ois.readObject());
+        this.origin         = UnserializePropertyFactory.magic((String) ois.readObject());
+        this.destination    = UnserializePropertyFactory.magic((String) ois.readObject());
+        this.departureTime  = UnserializePropertyFactory.magic((LocalDateTime) ois.readObject());
+        this.arrivalTime    = UnserializePropertyFactory.magic((LocalDateTime) ois.readObject());
+        this.duration       = UnserializePropertyFactory.magic((Duration) ois.readObject());
+        this.antallPlasser  = UnserializePropertyFactory.magic(ois.readInt());
+        this.reisende       = UnserializePropertyFactory.list((List<Reisende>) ois.readObject());
+        this.grupper        = UnserializePropertyFactory.list((List<Gruppe>) ois.readObject());
+    }
+    
 }

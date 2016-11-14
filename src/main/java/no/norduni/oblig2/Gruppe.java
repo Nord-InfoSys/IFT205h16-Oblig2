@@ -5,6 +5,10 @@
  */
 package no.norduni.oblig2;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -16,7 +20,7 @@ import javafx.collections.ObservableList;
  *
  * @author bubbaJ
  */
-public class Gruppe {
+public class Gruppe extends ModelBase {
     private SimpleStringProperty      gruppeKode;
     private ObservableList<Reisende>  reisende;
 
@@ -69,5 +73,17 @@ public class Gruppe {
         return ret;
     }
     
+     // Custom serialization. Cannot serialize JavaFX properties. We just serialize the contents.
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.writeObject(this.gruppeKode.get());
+        oos.writeObject(new ArrayList<>(this.reisende));
+    }
+
+    // Custom unserialization. Put values into their respective property wrappers.
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
+        this.gruppeKode     = UnserializePropertyFactory.magic((String) ois.readObject());
+        this.reisende       = UnserializePropertyFactory.list((List<Reisende>) ois.readObject());
+    }
+   
 }
 
