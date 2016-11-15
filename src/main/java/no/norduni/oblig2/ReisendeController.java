@@ -172,16 +172,16 @@ public class ReisendeController implements Initializable {
 
         
 
-        
+        this.gruppeVelger.setValue(reisende.getGruppe());
         // Set rett verdi i dropDown dersom gruppe er satt
-        try {
-            if(this.reisende.getGruppe() != null) {
-            //    gruppeVelger.setValue(this.reisende.getGruppe());
-                gruppeVelger.getSelectionModel().selectFirst();
-             }
-        } catch (NullPointerException e) {
-                System.out.println("FucMei" + e);
-        }
+//        try {
+//            if(this.reisende.getGruppe() != null) {
+//            //    gruppeVelger.setValue(this.reisende.getGruppe());
+//                gruppeVelger.getSelectionModel().selectFirst();
+//             }
+//        } catch (NullPointerException e) {
+//                System.out.println("FucMei" + e);
+//        }
 
 
         // EvesDropping @ gruppeValg

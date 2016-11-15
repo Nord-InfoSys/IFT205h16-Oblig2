@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,6 +52,15 @@ public class ReisendeSearchController implements Initializable {
 
     public void setFlightList(ObservableList<Flight> flightList) {
         this.mySearcher.setFlighter(flightList);
+        mySearcher.searchPassnr(searchField.getText());
+        
+        searchField.textProperty().addListener(new ChangeListener<String> (
+        ) {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                mySearcher.searchPassnr(newValue);
+            }
+        });
 //        ObservableList<Flight> fl = javafx.collections.FXCollections.observableArrayList();
 //        // Filter out the current flight, we're not searching our existing passenger
 //        for(Flight f: flightList) {

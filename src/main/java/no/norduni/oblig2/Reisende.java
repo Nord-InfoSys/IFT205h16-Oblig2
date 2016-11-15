@@ -97,8 +97,16 @@ public class Reisende extends ModelBase {
     }
 
     public void setGruppe(Gruppe value) {
+        // Fjern Reisende fra evt. forrige gruppe
+        if(gruppe.isNotNull().getValue()) {
+            gruppe.getValue().delReisende(this);
+        }
+        // Legg til gruppe på Reisende
         gruppe.set(value);
-        gruppe.getValue().addReisende(this);
+        // Legg Reisende til i ny gruppe (om nødvendig)
+        if(!value.getReisende().contains(this)) {
+            value.addReisende(this);
+        }
     }
 
     public ObjectProperty gruppeProperty() {

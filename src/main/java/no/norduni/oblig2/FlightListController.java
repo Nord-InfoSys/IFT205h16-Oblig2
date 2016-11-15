@@ -258,10 +258,15 @@ public class FlightListController implements Initializable {
             try {
                 flyvning.addReisende(r1);
                 flyvning.addReisende(r2);
+                flyvning.addReisende(r3);
             } catch (Exception ex) {
                 Logger.getLogger(FlightListController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+            r1.setBetaling(new Betaling(Betalingsmetode.CASH));
+            r2.setBetaling(new Betaling(Betalingsmetode.CASH));
+            r3.setBetaling(new Betaling(Betalingsmetode.KREDITT));
+            
             flyvning.addGruppe(g1);
             flyvning.addGruppe(g2);
 

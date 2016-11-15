@@ -165,7 +165,7 @@ public class FlightController {
  
 
     
-        IntField aa = new IntField(1,150,55);
+        //IntField aa = new IntField(1,150,55);
 
         
         // Integer Only på Antall seter
@@ -261,12 +261,11 @@ public class FlightController {
       Stage stage = new Stage(StageStyle.DECORATED);
       stage.setScene(new Scene((Pane) loader.load()));
       stage.setTitle("Edit Reisende");
-
      
       ReisendeController controller = loader.<ReisendeController>getController();
-      controller.setReisende(reisende);
+      
       controller.setFlight(this.flight);
-
+      controller.setReisende(reisende);
      
       stage.show();
 

@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 /**
@@ -23,10 +24,21 @@ import javafx.collections.ObservableList;
 public class Gruppe extends ModelBase {
     private SimpleStringProperty      gruppeKode;
     private ObservableList<Reisende>  reisende;
+    private SimpleIntegerProperty     antallReisende;
 
     public Gruppe() {
         this.gruppeKode = new SimpleStringProperty("");
         this.reisende = javafx.collections.FXCollections.observableArrayList();
+        this.antallReisende = new SimpleIntegerProperty();
+        
+        antallReisende.set(reisende.size());
+        reisende.addListener(new ListChangeListener<Reisende>(
+        ) {
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends Reisende> c) {
+                antallReisende.set(reisende.size());
+            }
+        });
     }
 
     public String getGruppeKode() {
@@ -45,20 +57,35 @@ public class Gruppe extends ModelBase {
         return reisende;
     }
 
-    public void setReisende(ObservableList<Reisende> reisende) {
-        this.reisende = reisende;
-    }
+//    public void setReisende(ObservableList<Reisende> reisende) {
+//        this.reisende = reisende;
+//    }
 
     public void addReisende(Reisende r) {
-        this.reisende.add(r);
+        if(!reisende.contains(r)) {
+            this.reisende.add(r);
+        }
+        if(r.gruppeProperty().isNotNull().getValue()) {
+            if(!r.getGruppe().equals(this)) {
+                    r.setGruppe(this);
+            }
+        } else {
+            r.setGruppe(this);
+        }
+    }
+    
+    public void delReisende(Reisende r) {
+        if(reisende.contains(r)) {
+            this.reisende.remove(r);
+        }
     }
     
     public Integer getAntallReisende() {
-        return this.getReisende().size();
+        return antallReisende.get();
     }
 
     public SimpleIntegerProperty antallReisendeProperty() {
-        return new SimpleIntegerProperty(this.getReisende().size());
+        return antallReisende;  //new SimpleIntegerProperty(this.getReisende().size());
     }
 
     public Reisende getReisendeByIndex(Integer index) {
