@@ -65,6 +65,10 @@ public class FlightController {
     @FXML
     private TextField antallPlasserTextBox;
     @FXML
+    private IntField antallPlasserIntBox;
+    @FXML
+    private NumberTextField antallPlasserNumberTextFieldBox;
+    @FXML
     private void closeButtonAction(){
         // get a handle to the stage
         Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -157,8 +161,7 @@ public class FlightController {
         this.destination.textProperty().bindBidirectional(this.flight.destinationProperty());
         this.departureTime.localDateTimeProperty().bindBidirectional(this.flight.departureTimeProperty());
         this.arrivalTime.localDateTimeProperty().bindBidirectional(this.flight.arrivalTimeProperty());
- //       this.antallPlasserValg.getNumber().bindBidirectional(this.flight.antallPlasserProperty());
-    //    this.antallPlasserTextBox.getTextFormatter().
+        this.antallPlasserTextBox.setText(this.flight.getAntallPlasser().toString());
  
 
     
@@ -171,6 +174,16 @@ public class FlightController {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (!newValue.matches("\\d*")) {
                     antallPlasserTextBox.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        // Oppdater antall seter når feltet mister fokus
+        antallPlasserTextBox.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.matches("\\d*")) {
+                    FlightController.this.flight.setAntallPlasser(Integer.parseInt(newValue) );
                 }
             }
         });                
