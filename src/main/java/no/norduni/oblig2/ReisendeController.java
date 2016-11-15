@@ -16,7 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
@@ -66,6 +68,8 @@ public class ReisendeController implements Initializable {
     private ToggleGroup KjonnToggle;
     @FXML
     private ToggleGroup BetalingToggle;
+    @FXML
+    private Label reisendeAlderLabel;
 
     @FXML
     private void closeButtonAction(){
@@ -99,6 +103,14 @@ public class ReisendeController implements Initializable {
         this.reisendePassField.textProperty().bindBidirectional(this.reisende.passnrProperty());
 
         
+        // Add listner for year-display
+        reisendeAlderLabel.setText(Integer.toString(this.reisende.getAlder()));
+        this.reisendeAlderField.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                reisendeAlderLabel.setText(Integer.toString(newValue.intValue()));
+            }
+        });
         
         // Set rett verdi på radibutton dersom verdien finnes
         try {
@@ -165,10 +177,9 @@ public class ReisendeController implements Initializable {
         try {
             if(this.reisende.getGruppe() != null) {
             //    gruppeVelger.setValue(this.reisende.getGruppe());
-            //    this.flight.getGruppeIndexSet(this.reisende.getGruppe());
-            //    gruppeVelger.getSelectionModel().select(0);
+                gruppeVelger.getSelectionModel().selectFirst();
              }
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
                 System.out.println("FucMei" + e);
         }
 

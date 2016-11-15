@@ -37,7 +37,8 @@
             <Label text="Alder" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Kjønn" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="reisendeNavnField" prefHeight="26.0" prefWidth="370.0" promptText="Fornavn Etternavn" GridPane.columnIndex="3" />
-            <Slider fx:id="reisendeAlderField" blockIncrement="1.0" min="1.0" value="1.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="reisendeAlderLabel" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Slider fx:id="reisendeAlderField" blockIncrement="1.0" min="1.0" value="1.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
             <Label text="Pass" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Betaling" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Gruppe" GridPane.columnIndex="1" GridPane.rowIndex="5" />
