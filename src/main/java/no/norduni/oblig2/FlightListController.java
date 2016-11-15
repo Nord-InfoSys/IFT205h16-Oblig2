@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -36,6 +37,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 public class FlightListController implements Initializable {
 
@@ -201,11 +203,22 @@ public class FlightListController implements Initializable {
         ObservableList<TableColumn> col = this.flightTableView.getColumns();
         for(TableColumn c : col) {
             switch(c.getId()) {
-//                case "antallPlasser":
-//                    c.setCellValueFactory(new PropertyValueFactory<Flight, SimpleIntegerProperty>("antallPlasser"));
-//                    break;
+                case "Duration":
+                    c.setCellValueFactory(
+                        new Callback<TableColumn.CellDataFeatures<Flight, String>, ObservableValue<String>>() {
+
+                            @Override
+                            public ObservableValue<String> call(TableColumn.CellDataFeatures<Flight, String> param) {
+                                Flight f = param.getValue();
+                                Duration d = f.getDuration();
+                                return new SimpleStringProperty(String.format("%02d:%02d", d.toHours(), d.toMinutes()));
+                            }
+                        }
+                    );
+                    break;
                 default:
                     c.setCellValueFactory(new PropertyValueFactory(c.getId()));
+
             }
         }
     }
