@@ -117,7 +117,6 @@ public class MyDB {
             System.out.println("BootStrapped: PassengerOnFlight!");
         } catch( SQLException e ) {
             System.out.println("NOTE: PassengerOnFlight finnes fra før..");
-            return; // That's OK
         }  
 
         try {
@@ -130,7 +129,6 @@ public class MyDB {
             System.out.println("BootStrapped: PassengerInGroup!");
         } catch( SQLException e ) {
             System.out.println("NOTE: PassengerInGroup finnes fra før..");
-            return; // That's OK
         }  
 
         try {
@@ -143,7 +141,7 @@ public class MyDB {
             System.out.println("BootStrapped: GroupOnFlight!");
         } catch( SQLException e ) {
             System.out.println("NOTE: GroupOnFlight finnes fra før..");
-       }  
+        }  
  
         /*
         if(!this.tableExists("PassengerOnFlight")) {
