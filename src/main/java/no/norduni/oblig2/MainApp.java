@@ -15,11 +15,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
-        
-        
         MyDB foo = new MyDB();
         foo.bootStrapDB();
-        
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FlightList.fxml"));
         //Parent root = FXMLLoader.load(getClass().getResource("/fxml/FlightList.fxml"));
