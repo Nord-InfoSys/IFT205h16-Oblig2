@@ -1,3 +1,5 @@
 .DS_Store
 /target/
 amadeus_190565
+mydbfile
+derby.log
