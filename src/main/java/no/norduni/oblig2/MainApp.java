@@ -16,6 +16,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         
         
+        
         MyDB foo = new MyDB();
         foo.bootStrapDB();
         

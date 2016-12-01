@@ -57,6 +57,7 @@ public class MyDB {
         return this.conn.getMetaData();
     }    
     
+    
     public boolean tableExists(String tableName) throws SQLException {
         ResultSet rs = this.getMetadata().getTables(null, this.conn.getSchema(), tableName, null);
         if (rs.next()) {
