@@ -13,4 +13,14 @@ import java.io.Serializable;
  */
 public class ModelBase implements Serializable {
     
+    private Integer dbid = null;
+
+    public Integer getDbid() {
+        return dbid;
+    }
+
+    public void setDbid(Integer dbid) {
+        this.dbid = dbid;
+    }
+    
 }

@@ -20,31 +20,64 @@ public class MyDB {
     String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     String url = "jdbc:derby:mydbfile;create=true;user=me;password=mine";
     
-    Connection conn;
+    Connection conn = null;
     
     public MyDB() {
         try {
             Class.forName(this.driver).newInstance();
             MyDB.dbg("Creating new connection to: " + url);
             this.conn = DriverManager.getConnection(url);
-            
-            
+
+
         } catch (Exception ex) {
             Logger.getLogger(MyDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void close() {
+        try {
+            this.conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MyDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public Boolean execute(String sql) throws SQLException {
-        MyDB.dbg("Executing SQL: " + sql);
+        MyDB.dbg("execute: SQL: " + sql);
         Statement s = this.conn.createStatement();
         return s.execute(sql);
     }
     
     public ResultSet executeQuery(String sql) {
         try {
-            MyDB.dbg("Executing SQL: " + sql);
+            MyDB.dbg("executeQuery: SQL: " + sql);
             Statement s = this.conn.createStatement();
             ResultSet r = s.executeQuery(sql);
+            s.close();
+            return r;
+        } catch (SQLException ex) {
+            Logger.getLogger(MyDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public ResultSet executeInsert(String sql) {
+        try {
+            MyDB.dbg("executeInsert: SQL: " + sql);
+            Statement s = this.conn.createStatement();
+            Integer r = s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+            return s.getGeneratedKeys();
+        } catch (SQLException ex) {
+            Logger.getLogger(MyDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public Integer executeUpdate(String sql) {
+        try {
+            MyDB.dbg("executeUpdate: SQL: " + sql);
+            Statement s = this.conn.createStatement();
+            Integer r = s.executeUpdate(sql);
             s.close();
             return r;
         } catch (SQLException ex) {
