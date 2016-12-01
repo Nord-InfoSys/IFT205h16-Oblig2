@@ -80,13 +80,11 @@ public class MyDB {
             this.execute(
                 "CREATE TABLE Reisende "
                         + "(ID INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-                        + "Name VARCHAR(255), "
-                        + "Age INT, "
-                        + "Passport VARCHAR(12), "
-                        + "Sex VARCHAR(6), "
-                        + "Payment VARCHAR(6), "
-                        + "Gruppe VARCHAR(255), "
-                        + "ShavenBalls BOOLEAN)"
+                        + "Navn VARCHAR(255), "
+                        + "Alder INT, "
+                        + "Passnr VARCHAR(12), "
+                        + "Kjonn VARCHAR(6), "
+                        + "Betaling VARCHAR(6))"
             );
             System.out.println("BootStrapped: Reisende!");
         } catch( SQLException e ) {
