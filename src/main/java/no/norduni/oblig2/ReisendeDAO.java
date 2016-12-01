@@ -26,7 +26,8 @@ public class ReisendeDAO {
         // så finnes det i reisende-map'en.
         if(!ReisendeDAO.reisende.containsKey(id)) {
             System.out.println("Ny instans!");
-            // XXX: Prøv å hent fra SQL
+            // TODO: Prøv å hent fra SQL
+            // Select id fra database, og putt verdiene i det nye objektet (HUSK setDbid())
             Reisende r = new Reisende();
             ReisendeDAO.reisende.put(id, r);
         }
@@ -56,7 +57,7 @@ public class ReisendeDAO {
                 Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            // XXX: UPDATE i databasen
+            // TODO: UPDATE i databasen ala det insert gjør, men da vet vi jo allerede ID ;-)
         }
     }
 
