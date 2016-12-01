@@ -17,6 +17,7 @@ public class MainApp extends Application {
         
         
         MyDB foo = new MyDB();
+        foo.bootStrapDB();
         
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FlightList.fxml"));
@@ -57,5 +58,5 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+   
 }
