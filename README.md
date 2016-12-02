@@ -1,3 +1,3 @@
-# IFT205h16-Oblig2
+# IFT205h16-Oblig3
 
-Obligatorisk innlevering 2 i IFT205 høst 2016. Nord Universitet.
+Obligatorisk innlevering 3 i IFT205 høst 2016. Nord Universitet.
