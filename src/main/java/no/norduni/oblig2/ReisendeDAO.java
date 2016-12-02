@@ -57,7 +57,21 @@ public class ReisendeDAO {
                 Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            // TODO: UPDATE i databasen ala det insert gjør, men da vet vi jo allerede ID ;-)
+            db.executeUpdate(String.format(
+                "UPDATE Reisende SET "
+                + "Navn = '$s',"
+                + "Alder = $d,"
+                + "Passnr = '$s',"
+                + "Kjonn = '$s',"
+                + "Betaling = '$s' "
+                + "WHERE ID = $d",
+                r.getNavn(),
+                r.getAlder(),
+                r.getPassnr(),
+                r.getKjonn(),
+                r.getBetaling(),
+                r.getDbid()
+            ));
         }
     }
 
