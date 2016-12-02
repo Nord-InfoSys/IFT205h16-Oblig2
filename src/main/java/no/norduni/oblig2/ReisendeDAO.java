@@ -27,11 +27,28 @@ public class ReisendeDAO {
         if(!ReisendeDAO.reisende.containsKey(id)) {
             System.out.println("Ny instans!");
             // TODO: Prøv å hent fra SQL
+            
             // Select id fra database, og putt verdiene i det nye objektet (HUSK setDbid())
             Reisende r = new Reisende();
             ReisendeDAO.reisende.put(id, r);
         }
         return ReisendeDAO.reisende.get(id);
+    }
+    
+    /**
+     * Sjekker om en reisende allerede eksisterer i databasen.
+     * @param r
+     * @return 
+     */
+    static Boolean exists(int id) {
+        try {
+            MyDB db = MyDB.getInstance();
+            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Reisende WHERE id = $d",id));
+            return rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     static void save(Reisende r) {
