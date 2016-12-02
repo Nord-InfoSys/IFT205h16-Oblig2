@@ -76,6 +76,15 @@ public class ReisendeDAO {
     }
 
     static void delete(Reisende r) {
+        MyDB db = MyDB.getInstance();
+        try {
+            db.execute(String.format(
+                    "DELETE FROM Reisende WHERE ID = $d",
+                    r.getDbid()
+            ));
+        } catch (SQLException ex) {
+            Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
