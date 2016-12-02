@@ -26,10 +26,13 @@ public class ReisendeDAO {
         // så finnes det i reisende-map'en.
         if(!ReisendeDAO.reisende.containsKey(id)) {
             System.out.println("Ny instans!");
-            // TODO: Prøv å hent fra SQL
-            
-            // Select id fra database, og putt verdiene i det nye objektet (HUSK setDbid())
-            Reisende r = new Reisende();
+            Reisende r;
+            if(ReisendeDAO.exists(id)) {
+                r = ReisendeDAO.get(id);
+            }
+            else {
+                r = new Reisende();        
+            }
             ReisendeDAO.reisende.put(id, r);
         }
         return ReisendeDAO.reisende.get(id);
@@ -49,6 +52,32 @@ public class ReisendeDAO {
             Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+    
+    /**
+     * Henter et reisende-objekt fra databasen
+     * @param id
+     * @return 
+     */
+    private static Reisende get(int id) {
+        try {
+            MyDB db = MyDB.getInstance();
+            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Reisende WHERE id = $d",id));
+            rs.next();
+            Reisende r = new Reisende();
+            r.setAlder(rs.getInt("Alder"));
+            // TODO betaling, gruppe og kjønn
+//            r.setBetaling();
+            r.setDbid(id);
+//            r.setGruppe(rs.getString("Gruppe"));
+//            r.setKjonn();
+            r.setNavn(rs.getString("Navn"));
+            r.setPassnr(rs.getString("Passnr"));
+            return r;
+        } catch (SQLException ex) {
+            Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }        
     }
 
     static void save(Reisende r) {
@@ -103,5 +132,4 @@ public class ReisendeDAO {
             Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }
