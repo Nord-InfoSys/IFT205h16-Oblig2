@@ -9,6 +9,7 @@ package no.norduni.oblig2;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -60,7 +61,7 @@ public class FlightDAO {
     static Boolean exists(int id) {
         try {
             MyDB db = MyDB.getInstance();
-            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Flights WHERE id = $d",id));
+            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Flights WHERE id = %d",id));
             return rs.next();
         } catch (SQLException ex) {
             Logger.getLogger(FlightDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -145,6 +146,12 @@ public class FlightDAO {
         }
     }
 
+    static void saveAll(List<Flight> fl) {
+        for(Flight f: fl) {
+            FlightDAO.save(f);
+        }
+    }
+    
     static void delete(Flight f) {
         MyDB db = MyDB.getInstance();
         try {
