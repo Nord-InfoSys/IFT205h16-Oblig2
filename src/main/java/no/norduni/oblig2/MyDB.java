@@ -132,7 +132,7 @@ public class MyDB {
                         + "Origin VARCHAR(255), "
                         + "Destination VARCHAR(12), "
                         + "DepartureTime TIMESTAMP, "
-                        + "FlightDuration INT, "
+                        + "ArrivalTime TIMESTAMP, "
                         + "Seats INT)"
             );
             System.out.println("BootStrapped: Flights!");
