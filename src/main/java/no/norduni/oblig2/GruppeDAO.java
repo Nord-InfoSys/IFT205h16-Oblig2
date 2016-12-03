@@ -97,8 +97,10 @@ public class GruppeDAO {
         } else {
             db.executeUpdate(String.format(
                 "UPDATE Grupper SET "
-                + "GruppeKode = '%s'",
-                g.getGruppeKode()
+                + "GruppeKode = '%s' "
+                + "WHERE ID = %d",
+                g.getGruppeKode(),
+                g.getDbid()
             ));
         }
         
