@@ -8,7 +8,6 @@ package no.norduni.oblig2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -40,19 +39,7 @@ public class FlightDAO {
     }
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
+   /**
      * Sjekker om en flight allerede eksisterer i databasen.
      * @param f
      * @return 

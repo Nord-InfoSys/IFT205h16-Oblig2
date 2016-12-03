@@ -142,6 +142,17 @@ public class MyDB {
 
         try {
             this.execute(
+                "CREATE TABLE Grupper "
+                        + "(ID INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+                        + "GruppeKode VARCHAR(255))"
+            );
+            System.out.println("BootStrapped: Grupper!");
+        } catch( SQLException e ) {
+            System.out.println("NOTE: Grupper finnes fra før..");
+        }  
+
+        try {
+            this.execute(
                 "CREATE TABLE PassengerOnFlight "
                         + "(ID INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
                         + "FlightID INT, "
