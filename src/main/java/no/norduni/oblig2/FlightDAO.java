@@ -98,10 +98,6 @@ public class FlightDAO {
     static void save(Flight f) {
         MyDB db = MyDB.getInstance();
         
-        ZoneId zone = ZoneId.systemDefault(); // or: ZoneId.of("Europe/Oslo");
-        long departureTime = f.getDepartureTime().atZone(zone).toEpochSecond();
-        long arrivalTime   = f.getArrivalTime().atZone(zone).toEpochSecond();
-                
         if(f.getDbid() == null) {
             // INSERT i databasen, hent tilbake ID, og stapp objektet i Map
             ResultSet rs = db.executeInsert(String.format(
@@ -128,14 +124,14 @@ public class FlightDAO {
                 + "FlightNr = '%s',"
                 + "Origin = '%s',"
                 + "Destination = '%s',"
-                + "DepartureTime = %d,"
-                + "ArrivalTime = %d "
+                + "DepartureTime = TIMESTAMP('%s'),"
+                + "ArrivalTime = TIMESTAMP('%s') "
                 + "WHERE ID = %d",
                 f.getFlightNummer(),
                 f.getOrigin(),
                 f.getDestination(),
-                departureTime,
-                arrivalTime,
+                String.format("%s %s", f.getDepartureTime().toLocalDate().toString(), f.getDepartureTime().toLocalTime().toString()),
+                String.format("%s %s", f.getArrivalTime().toLocalDate().toString(), f.getDepartureTime().toLocalTime().toString()),
                 f.getAntallPlasser()
             ));
         }
@@ -146,6 +142,8 @@ public class FlightDAO {
         // Lagre passasjerer
         FlightDAO.saveReisende(f);
         
+        // Lagre grupper
+        FlightDAO.saveGrupper(f);
     }
 
     private static void saveReisende(Flight f) {
@@ -162,6 +160,27 @@ public class FlightDAO {
                     String.format("INSERT INTO ReisendeOnFlight (FlightID, ReisendeID) VALUES (%d, %d)",
                         f.getDbid(),
                         r.getDbid()
+                ));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void saveGrupper(Flight f) {
+        MyDB db = MyDB.getInstance();
+        
+        try {
+            // Tøm koblingstabell for alt som har med denne flighten
+            db.execute(String.format("DELETE FROM GruppeOnFlight WHERE FlightID = %d", f.getDbid()));
+
+            // Lagre alle Reisende og oppdater koblinger
+            for(Gruppe g: f.getGrupper()) {
+                GruppeDAO.save(g);
+                db.executeInsert(
+                    String.format("INSERT INTO GruppeOnFlight (FlightID, GruppeID) VALUES (%d, %d)",
+                        f.getDbid(),
+                        g.getDbid()
                 ));
             }
         } catch (SQLException ex) {
