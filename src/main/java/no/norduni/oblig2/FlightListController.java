@@ -134,10 +134,7 @@ public class FlightListController implements Initializable {
     @FXML
     private void handleFileSaveAction(ActionEvent event) {
         try {
-            ArrayList flightList = new ArrayList(this.flighter);
-            FileOutputStream fout = new FileOutputStream(this.saveFileName);
-            ObjectOutputStream oos = new ObjectOutputStream(fout);
-            oos.writeObject(flightList);
+            FlightDAO.saveAll(this.flighter);
             System.out.println("Lagring komplett...");
         } catch (Exception e) {
             System.out.println(e);

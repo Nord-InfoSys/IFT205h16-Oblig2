@@ -116,8 +116,8 @@ public class MyDB {
                         + "Navn VARCHAR(255), "
                         + "Alder INT, "
                         + "Passnr VARCHAR(12), "
-                        + "Kjonn VARCHAR(6), "
-                        + "Betaling VARCHAR(6))"
+                        + "Kjonn VARCHAR(8), "
+                        + "Betaling VARCHAR(8))"
             );
             System.out.println("BootStrapped: Reisende!");
         } catch( SQLException e ) {
@@ -142,9 +142,19 @@ public class MyDB {
 
         try {
             this.execute(
-                "CREATE TABLE PassengerOnFlight "
+                "CREATE TABLE Grupper "
                         + "(ID INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-                        + "FlightID INT, "
+                        + "GruppeKode VARCHAR(255))"
+            );
+            System.out.println("BootStrapped: Grupper!");
+        } catch( SQLException e ) {
+            System.out.println("NOTE: Grupper finnes fra før..");
+        }  
+
+        try {
+            this.execute(
+                "CREATE TABLE ReisendeOnFlight "
+                        + "(FlightID INT, "
                         + "ReisendeID INT)"
             );
             System.out.println("BootStrapped: PassengerOnFlight!");
@@ -154,9 +164,8 @@ public class MyDB {
 
         try {
             this.execute(
-                "CREATE TABLE PassengerInGroup "
-                        + "(ID INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-                        + "ReisendeID INT, "
+                "CREATE TABLE ReisendeInGruppe "
+                        + "(ReisendeID INT, "
                         + "GruppeID INT)"
             );
             System.out.println("BootStrapped: PassengerInGroup!");
@@ -166,9 +175,8 @@ public class MyDB {
 
         try {
             this.execute(
-                "CREATE TABLE GroupOnFlight "
-                        + "(ID INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-                        + "FlightID INT, "
+                "CREATE TABLE GruppeOnFlight "
+                        + "(FlightID INT, "
                         + "GruppeID INT)"
             );
             System.out.println("BootStrapped: GroupOnFlight!");

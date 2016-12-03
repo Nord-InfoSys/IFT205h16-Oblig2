@@ -46,7 +46,7 @@ public class ReisendeDAO {
     static Boolean exists(int id) {
         try {
             MyDB db = MyDB.getInstance();
-            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Reisende WHERE id = $d",id));
+            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Reisende WHERE id = %d",id));
             return rs.next();
         } catch (SQLException ex) {
             Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);

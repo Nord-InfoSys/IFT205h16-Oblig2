@@ -9,6 +9,7 @@ package no.norduni.oblig2;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -41,19 +42,7 @@ public class FlightDAO {
     }
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
+   /**
      * Sjekker om en flight allerede eksisterer i databasen.
      * @param f
      * @return 
@@ -104,18 +93,24 @@ public class FlightDAO {
         }        
     }
 
+    
+    
     static void save(Flight f) {
         MyDB db = MyDB.getInstance();
         
+        ZoneId zone = ZoneId.systemDefault(); // or: ZoneId.of("Europe/Oslo");
+        long departureTime = f.getDepartureTime().atZone(zone).toEpochSecond();
+        long arrivalTime   = f.getArrivalTime().atZone(zone).toEpochSecond();
+                
         if(f.getDbid() == null) {
             // INSERT i databasen, hent tilbake ID, og stapp objektet i Map
             ResultSet rs = db.executeInsert(String.format(
-                    "INSERT INTO Flights (FlightNr, Origin, Destination, DepartureTime, ArrivalTime, Seats) VALUES ('%s', %s, '%s', '%s', '%s', '%d')",
+                    "INSERT INTO Flights (FlightNr, Origin, Destination, DepartureTime, ArrivalTime, Seats) VALUES ('%s', '%s', '%s', TIMESTAMP('%s'), TIMESTAMP('%s'), %d)",
                     f.getFlightNummer(),
                     f.getOrigin(),
                     f.getDestination(),
-                    f.getDepartureTime().toString(),
-                    f.getArrivalTime().toString(),
+                    String.format("%s %s", f.getDepartureTime().toLocalDate().toString(), f.getDepartureTime().toLocalTime().toString()),
+                    String.format("%s %s", f.getArrivalTime().toLocalDate().toString(), f.getDepartureTime().toLocalTime().toString()),
                     f.getAntallPlasser()
             ));
             
@@ -131,21 +126,49 @@ public class FlightDAO {
             db.executeUpdate(String.format(
                 "UPDATE Flights SET "
                 + "FlightNr = '%s',"
-                + "Origin = %s,"
+                + "Origin = '%s',"
                 + "Destination = '%s',"
-                + "DepartureTime = '%s',"
-                + "ArrivalTime = '%s' "
+                + "DepartureTime = %d,"
+                + "ArrivalTime = %d "
                 + "WHERE ID = %d",
                 f.getFlightNummer(),
                 f.getOrigin(),
                 f.getDestination(),
-                f.getDepartureTime().toString(),
-                f.getArrivalTime().toString(),
+                departureTime,
+                arrivalTime,
                 f.getAntallPlasser()
             ));
         }
+        
+        // Her er objektet "garantert" lagret i databasen, og det har en database ID.
+        // Uansett om objektet var nytt og ikke hadde dbid eller ikke.
+        
+        // Lagre passasjerer
+        FlightDAO.saveReisende(f);
+        
     }
 
+    private static void saveReisende(Flight f) {
+        MyDB db = MyDB.getInstance();
+        
+        try {
+            // Tøm koblingstabell for alt som har med denne flighten
+            db.execute(String.format("DELETE FROM ReisendeOnFlight WHERE FlightID = %d", f.getDbid()));
+
+            // Lagre alle Reisende og oppdater koblinger
+            for(Reisende r: f.getReisende()) {
+                ReisendeDAO.save(r);
+                db.executeInsert(
+                    String.format("INSERT INTO ReisendeOnFlight (FlightID, ReisendeID) VALUES (%d, %d)",
+                        f.getDbid(),
+                        r.getDbid()
+                ));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     static void saveAll(List<Flight> fl) {
         for(Flight f: fl) {
             FlightDAO.save(f);
