@@ -174,7 +174,7 @@ public class FlightDAO {
             // Tøm koblingstabell for alt som har med denne flighten
             db.execute(String.format("DELETE FROM GruppeOnFlight WHERE FlightID = %d", f.getDbid()));
 
-            // Lagre alle Reisende og oppdater koblinger
+            // Lagre alle Grupper og oppdater koblinger
             for(Gruppe g: f.getGrupper()) {
                 GruppeDAO.save(g);
                 db.executeInsert(
