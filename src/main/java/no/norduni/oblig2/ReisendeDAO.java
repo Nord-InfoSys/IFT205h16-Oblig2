@@ -62,7 +62,7 @@ public class ReisendeDAO {
     private static Reisende get(int id) {
         try {
             MyDB db = MyDB.getInstance();
-            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Reisende WHERE id = $d",id));
+            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Reisende WHERE id = %d",id));
             rs.next();
             Reisende r = new Reisende();
             r.setAlder(rs.getInt("Alder"));
@@ -105,17 +105,17 @@ public class ReisendeDAO {
         } else {
             db.executeUpdate(String.format(
                 "UPDATE Reisende SET "
-                + "Navn = '$s',"
-                + "Alder = $d,"
-                + "Passnr = '$s',"
-                + "Kjonn = '$s',"
-                + "Betaling = '$s' "
-                + "WHERE ID = $d",
+                + "Navn = '%s',"
+                + "Alder = %d,"
+                + "Passnr = '%s',"
+                + "Kjonn = '%s',"
+                + "Betaling = '%s' "
+                + "WHERE ID = %d",
                 r.getNavn(),
                 r.getAlder(),
                 r.getPassnr(),
                 r.getKjonn(),
-                r.getBetaling(),
+                r.getBetaling().getMetode(),
                 r.getDbid()
             ));
         }
@@ -125,7 +125,7 @@ public class ReisendeDAO {
         MyDB db = MyDB.getInstance();
         try {
             db.execute(String.format(
-                    "DELETE FROM Reisende WHERE ID = $d",
+                    "DELETE FROM Reisende WHERE ID = %d",
                     r.getDbid()
             ));
         } catch (SQLException ex) {

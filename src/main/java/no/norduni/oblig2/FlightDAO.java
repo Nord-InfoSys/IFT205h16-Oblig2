@@ -22,8 +22,8 @@ public class FlightDAO {
             System.out.println("Ny flight-instans!");
             // TODO: Prøv å hent fra SQL
             // Select id fra database, og putt verdiene i det nye objektet (HUSK setDbid())
-            Reisende r = new Reisende();
-            ReisendeDAO.reisende.put(id, r);
+            Flight f = new Flight();
+            FlightDAO.flights.put(id, f);
         }
         return FlightDAO.flights.get(id);
     }
