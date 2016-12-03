@@ -101,8 +101,32 @@ public class GruppeDAO {
                 g.getGruppeKode()
             ));
         }
+        
+        // Nå er gruppen "garantert" lagret (har dbid). Sørg for at reisende i gruppen lagres til db.
+        GruppeDAO.saveReisende(g);
     }
 
+    private static void saveReisende(Gruppe g) {
+        MyDB db = MyDB.getInstance();
+        
+        try {
+            // Tøm koblingstabell for alt som har med denne gruppen
+            db.execute(String.format("DELETE FROM ReisendeInGruppe WHERE GruppeID = %d", g.getDbid()));
+
+            // Lagre alle Reisende og oppdater koblinger
+            for(Reisende r: g.getReisende()) {
+                ReisendeDAO.save(r);
+                db.executeInsert(
+                    String.format("INSERT INTO ReisendeInGruppe (GruppeID, ReisendeID) VALUES (%d, %d)",
+                        g.getDbid(),
+                        r.getDbid()
+                ));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     static void delete(Gruppe g) {
         MyDB db = MyDB.getInstance();
         try {
