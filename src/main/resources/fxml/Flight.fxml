@@ -19,6 +19,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import jfxtras.labs.scene.control.BigDecimalField?>
 <?import jfxtras.scene.control.LocalDateTimeTextField?>
+<?import javafx.scene.control.ContextMenu?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.norduni.oblig2.FlightController">
    <top>
@@ -88,6 +89,14 @@
                               <TableColumn id="betaling" prefWidth="75.0" text="Betaling" />
                               <TableColumn id="gruppe" prefWidth="75.0" text="Gruppe" />
                           </columns>
+                            <contextMenu>
+                                <ContextMenu fx:id="reisendeContext">
+                                  <items>
+                                    <MenuItem fx:id="flyttReisendeMeny" mnemonicParsing="false" text="Flytt reisende til flight" />
+                                    <SeparatorMenuItem />
+                                  </items>
+                                </ContextMenu>
+                            </contextMenu>
                         </TableView>
                      </children>
                   </AnchorPane>
@@ -102,7 +111,15 @@
                               <TableColumn id="gruppeKode" prefWidth="275.0" text="Gruppe" />
                               <TableColumn id="antallReisende" prefWidth="75.0" text="Antall" />
                           </columns>
-                        </TableView>
+                            <contextMenu>
+                                <ContextMenu fx:id="gruppeContext">
+                                  <items>
+                                    <MenuItem fx:id="flyttGruppeMeny" mnemonicParsing="false" text="Flytt gruppe til flight" />
+                                    <SeparatorMenuItem />
+                                  </items>
+                                </ContextMenu>
+                            </contextMenu>
+                        </TableView>                        
                      </children>
                   </AnchorPane>
               </content>

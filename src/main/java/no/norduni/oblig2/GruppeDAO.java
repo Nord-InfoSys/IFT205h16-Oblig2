@@ -23,7 +23,7 @@ public class GruppeDAO {
 
     static Map<Integer, Gruppe> grupper = new TreeMap<>();
 
-    static List<Gruppe> getAllInstancesOnFlight(Flight f) throws Exception {
+    static void getAllInstancesOnFlight(Flight f) throws Exception {
         List<Gruppe> liste = new ArrayList();
         try {
             MyDB db = MyDB.getInstance();
@@ -31,10 +31,9 @@ public class GruppeDAO {
             while (rs.next()) {
                 liste.add(GruppeDAO.getInstanceForId(rs.getInt("GruppeID")));
             }
-            return liste;
+            f.setGruppeList(liste);
         } catch (SQLException ex) {
             Logger.getLogger(GruppeDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
     }
 

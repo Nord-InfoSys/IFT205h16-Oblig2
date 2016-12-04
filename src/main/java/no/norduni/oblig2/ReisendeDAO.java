@@ -21,7 +21,7 @@ public class ReisendeDAO {
     // Map av allerede instansierte objekter fra databasen.
     static Map<Integer, Reisende> reisende = new TreeMap<>();
     
-        static Boolean getAllInstancesOnFlight(Flight f) throws Exception {
+        static void getAllInstancesOnFlight(Flight f) throws Exception {
             
             try {
                 MyDB db = MyDB.getInstance();
@@ -31,10 +31,7 @@ public class ReisendeDAO {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
-                return null;
             }
-        
-        return true;
         }
 
         static void getAllInstancesOnGruppe(Gruppe g) throws Exception {
@@ -46,7 +43,6 @@ public class ReisendeDAO {
                     Reisende r = ReisendeDAO.getInstanceForId(rs.getInt("ReisendeID"));
                     r.setGruppe(g);
                     g.addReisende(r);
-                    
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,10 +95,10 @@ public class ReisendeDAO {
             Reisende r = new Reisende();
             r.setAlder(rs.getInt("Alder"));
             // TODO betaling, gruppe og kjønn
-//            r.setBetaling();
+            
+            r.setBetaling(new Betaling(Betalingsmetode.valueOf(rs.getString("Betaling"))));
             r.setDbid(id);
-//            r.setGruppe(rs.getString("Gruppe"));
-//            r.setKjonn();
+            r.setKjonn(Kjonn.valueOf(rs.getString("Kjonn")));
             r.setNavn(rs.getString("Navn"));
             r.setPassnr(rs.getString("Passnr"));
             return r;
