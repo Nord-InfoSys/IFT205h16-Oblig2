@@ -240,6 +240,7 @@ public class Flight extends ModelBase {
     
     /**
      * Bytter ut gruppelista på flight objektet med en ny. 
+     * @param nyListe
      */ 
     public void setGruppeList(List<Gruppe> nyListe) {
         grupper.setAll(nyListe);
