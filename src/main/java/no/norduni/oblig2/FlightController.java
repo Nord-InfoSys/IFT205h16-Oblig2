@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML ;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -65,9 +66,13 @@ public class FlightController {
     @FXML
     private TextField antallPlasserTextBox;
     @FXML
-    private IntField antallPlasserIntBox;
+    private ContextMenu reisendeContext;
     @FXML
-    private NumberTextField antallPlasserNumberTextFieldBox;
+    private MenuItem flyttReisendeMeny;
+    @FXML
+    private ContextMenu gruppeContext;
+    @FXML
+    private MenuItem flyttGruppeMeny;
     @FXML
     private void closeButtonAction(){
         // get a handle to the stage
@@ -250,7 +255,47 @@ public class FlightController {
                 default:
                     c2.setCellValueFactory(new PropertyValueFactory(c2.getId()));
             }
-        }
+        } 
+    }
+    
+    private MenuItem getFlyttReisendeToFlightMenuItem(Flight f) {
+        MenuItem m = new MenuItem(f.getFlightNummer());    
+        m.setOnAction(e ->{
+            try {
+                Reisende r = (Reisende)passengerTable.getSelectionModel().getSelectedItem();
+                this.flight.removeReisende(r);
+                try {
+                    Gruppe g = r.getGruppe();
+                    g.delReisende(r);
+                    r.setGruppe(null);
+                } catch (Exception ex) {
+                    System.out.println("Har ingen gruppe.");
+                }
+                f.addReisende(r);
+            } catch (Exception ex) {
+                Logger.getLogger(FlightController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        return m;
+    }
+    
+    private MenuItem getFlyttGruppeToFlightMenuItem(Flight f) {
+        MenuItem m = new MenuItem(f.getFlightNummer());    
+        m.setOnAction(e ->{
+            try {
+                Gruppe g = (Gruppe)this.groupTable.getSelectionModel().getSelectedItem();
+                this.flight.removeGruppe(g);
+                f.addGruppe(g);
+                for (Reisende r : g.getReisende()) {
+                    this.flight.removeReisende(r);
+                    f.addReisende(r);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(FlightController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        return m;
+        
     }
 
 
@@ -312,5 +357,22 @@ public class FlightController {
 
     void setFlighter(ObservableList<Flight> flighter) {
         this.flighter = flighter;
+        
+        //contextmeny, passasjer
+        for(Flight f : flighter) {
+            if(!f.equals(this.flight)) {
+                reisendeContext.getItems().add(this.getFlyttReisendeToFlightMenuItem(f));
+                System.out.println("Legger til meny for " + f.getFlightNummer());
+            }
+        }
+        
+        //contextmeny grupper
+        for(Flight f : flighter) {
+            if(!f.equals(this.flight)) {
+                gruppeContext.getItems().add(this.getFlyttGruppeToFlightMenuItem(f));
+                System.out.println("Legger til meny for " + f.getFlightNummer());
+            }
+        }
     }
+
 }
