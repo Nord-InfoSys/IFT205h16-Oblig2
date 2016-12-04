@@ -8,6 +8,7 @@ package no.norduni.oblig2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -106,7 +107,9 @@ public class FlightDAO {
         }        
     }
 
-    
+    private static String toTimeStamp(LocalDateTime dt) {
+        return String.format("%s %s", dt.toLocalDate().toString(), dt.toLocalTime().toString());
+    }
     
     static void save(Flight f) {
         MyDB db = MyDB.getInstance();
@@ -118,8 +121,8 @@ public class FlightDAO {
                     f.getFlightNummer(),
                     f.getOrigin(),
                     f.getDestination(),
-                    String.format("%s %s", f.getDepartureTime().toLocalDate().toString(), f.getDepartureTime().toLocalTime().toString()),
-                    String.format("%s %s", f.getArrivalTime().toLocalDate().toString(), f.getDepartureTime().toLocalTime().toString()),
+                    FlightDAO.toTimeStamp( f.getDepartureTime()),
+                    FlightDAO.toTimeStamp( f.getArrivalTime()),
                     f.getAntallPlasser()
             ));
             
@@ -143,8 +146,8 @@ public class FlightDAO {
                 f.getFlightNummer(),
                 f.getOrigin(),
                 f.getDestination(),
-                String.format("%s %s", f.getDepartureTime().toLocalDate().toString(), f.getDepartureTime().toLocalTime().toString()),
-                String.format("%s %s", f.getArrivalTime().toLocalDate().toString(), f.getDepartureTime().toLocalTime().toString()),
+                FlightDAO.toTimeStamp( f.getDepartureTime()),
+                FlightDAO.toTimeStamp( f.getArrivalTime()),
                 f.getAntallPlasser()
             ));
         }
