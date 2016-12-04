@@ -21,7 +21,23 @@ public class ReisendeDAO {
     // Map av allerede instansierte objekter fra databasen.
     static Map<Integer, Reisende> reisende = new TreeMap<>();
     
-    static Reisende getInstanceForId(int id) {
+        static Boolean getAllInstancesOnFlight(Flight f) throws Exception {
+            
+            try {
+                MyDB db = MyDB.getInstance();
+                ResultSet rs = db.executeQuery(String.format("SELECT ReisendeID FROM ReisendeOnFligt WHERE FlightID = %d",f.getDbid()));
+                while (rs.next()) {
+                    f.addReisende(ReisendeDAO.getInstanceForId(rs.getInt("ReisendeID")));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        
+        return true;
+        }
+
+        static Reisende getInstanceForId(int id) {
         // Dersom vi allerede har instansiert et objekt for ID,
         // så finnes det i reisende-map'en.
         if(!ReisendeDAO.reisende.containsKey(id)) {

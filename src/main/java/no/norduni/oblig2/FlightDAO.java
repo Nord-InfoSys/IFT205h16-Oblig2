@@ -8,8 +8,6 @@ package no.norduni.oblig2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -24,19 +22,35 @@ public class FlightDAO {
 
     static Map<Integer, Flight> flights = new TreeMap<>();
 
-    static Flight getInstanceForId(int id) {
+        static Boolean getAllInstances() {
+            
+            try {
+                MyDB db = MyDB.getInstance();
+                ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Flights",id));
+                while (rs.next()) {
+                    FlightDAO.getInstanceForId(rs.getInt("ID"));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FlightDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        
+        return true;
+        }
+
+        
+        static Flight getInstanceForId(int id) throws Exception {
         if(!FlightDAO.flights.containsKey(id)) {
             System.out.println("Ny flight-instans!");
-            // TODO: Prøv å hent fra SQL
-            // Select id fra database, og putt verdiene i det nye objektet (HUSK setDbid())
             Flight f;
+
             if(FlightDAO.exists(id)) {
                  f = FlightDAO.get(id);
-             }
-             else {
-                 f = new Flight();       
-             }
-             FlightDAO.flights.put(id, f);
+            }
+            else {
+               f = new Flight();       
+            }
+            FlightDAO.flights.put(id, f);
         }
         return FlightDAO.flights.get(id);
     }
@@ -63,7 +77,7 @@ public class FlightDAO {
      * @param id
      * @return 
      */
-    private static Flight get(int id) {
+    private static Flight get(int id) throws Exception {
         try {
             MyDB db = MyDB.getInstance();
             ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Flight WHERE id = %d",id));
@@ -80,12 +94,9 @@ public class FlightDAO {
  
             f.calcDuration(f.getDepartureTime(),f.getArrivalTime());
             
+            //GruppeDAO.getAllInstancesOnFlight(f);
+            ReisendeDAO.getAllInstancesOnFlight(f);
             
-            /*
-            f.setGrupper(grupper);
-            f.setReisende();
-            */
-
             return f;
         } catch (SQLException ex) {
             Logger.getLogger(FlightDAO.class.getName()).log(Level.SEVERE, null, ex);
