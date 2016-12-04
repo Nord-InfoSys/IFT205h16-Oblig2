@@ -234,4 +234,11 @@ public class Flight extends ModelBase {
         return ret;
     }
     
+    /**
+     * Bytter ut lista på flight objektet med en ny.
+     * @param nyListe 
+     */
+    public void setReisendeListe(List<Reisende> nyListe) {
+        reisende.setAll(nyListe);
+    }
 }
