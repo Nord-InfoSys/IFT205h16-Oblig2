@@ -23,7 +23,7 @@ public class GruppeDAO {
 
     static Map<Integer, Gruppe> grupper = new TreeMap<>();
 
-    static List<Gruppe> getAllInstancesOnFlight(Flight f) throws Exception {
+    static void getAllInstancesOnFlight(Flight f) throws Exception {
         List<Gruppe> liste = new ArrayList();
         try {
             MyDB db = MyDB.getInstance();
@@ -31,10 +31,9 @@ public class GruppeDAO {
             while (rs.next()) {
                 liste.add(GruppeDAO.getInstanceForId(rs.getInt("GruppeID")));
             }
-            return liste;
+            f.setGruppeList(liste);
         } catch (SQLException ex) {
             Logger.getLogger(GruppeDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
     }
 
@@ -64,7 +63,7 @@ public class GruppeDAO {
     static Boolean exists(int id) {
         try {
             MyDB db = MyDB.getInstance();
-            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Grupper WHERE id = $d",id));
+            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Grupper WHERE id = %d",id));
             return rs.next();
         } catch (SQLException ex) {
             Logger.getLogger(FlightDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,7 +85,7 @@ public class GruppeDAO {
             Gruppe g = new Gruppe();
             g.setDbid(id);
             g.setGruppeKode(rs.getString("GruppeKode"));
-            // ReisendeDAO.getAllInstancesOnGruppe(g);
+            //ReisendeDAO.getAllInstancesOnGruppe(g);
             return g;
         } catch (SQLException ex) {
             Logger.getLogger(GruppeDAO.class.getName()).log(Level.SEVERE, null, ex);
