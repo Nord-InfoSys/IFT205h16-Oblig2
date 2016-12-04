@@ -31,7 +31,6 @@ public class GruppeDAO {
             while (rs.next()) {
                 liste.add(GruppeDAO.getInstanceForId(rs.getInt("GruppeID")));
             }
-            System.out.println("Returnerer gruppeliste");
             return liste;
         } catch (SQLException ex) {
             Logger.getLogger(GruppeDAO.class.getName()).log(Level.SEVERE, null, ex);
