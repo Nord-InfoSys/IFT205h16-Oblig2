@@ -8,6 +8,7 @@ package no.norduni.oblig2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -143,11 +144,18 @@ public class GruppeDAO {
     }
     
     static List<Gruppe> getAllInstancesForFlight(Flight f) {
-        MyDB db = MyDB.getInstance();
-        db.executeQuery("SELECT ID FROM ");
-        return null;
-        
-        
+        List<Gruppe> liste = new ArrayList();
+        try {
+            MyDB db = MyDB.getInstance();
+            ResultSet rs = db.executeQuery(String.format("SELECT GruppeID FROM GruppeOnFlight WHERE FlightID = %d",f.getDbid()));
+            while (rs.next()) {
+                liste.add(GruppeDAO.get(rs.getInt("GruppeID")));
+            }
+            return liste;
+        } catch (SQLException ex) {
+            Logger.getLogger(GruppeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
   
 }
