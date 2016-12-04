@@ -183,10 +183,6 @@ public class Flight extends ModelBase {
         }
         return ret;
     }
-
-    public void setGrupper(ObservableList<Gruppe> grupper) {
-        this.grupper = grupper;
-    }
   
     public void addGruppe(Gruppe g) {
         this.grupper.add(g);
@@ -240,5 +236,12 @@ public class Flight extends ModelBase {
      */
     public void setReisendeListe(List<Reisende> nyListe) {
         reisende.setAll(nyListe);
+    }
+    
+    /**
+     * Bytter ut gruppelista på flight objektet med en ny. 
+     */ 
+    public void setGruppeList(List<Gruppe> nyListe) {
+        grupper.setAll(nyListe);
     }
 }
