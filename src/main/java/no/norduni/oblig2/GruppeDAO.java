@@ -85,7 +85,7 @@ public class GruppeDAO {
             Gruppe g = new Gruppe();
             g.setDbid(id);
             g.setGruppeKode(rs.getString("GruppeKode"));
-            //ReisendeDAO.getAllInstancesOnGruppe(g);
+            ReisendeDAO.getAllInstancesOnGruppe(g);
             return g;
         } catch (SQLException ex) {
             Logger.getLogger(GruppeDAO.class.getName()).log(Level.SEVERE, null, ex);

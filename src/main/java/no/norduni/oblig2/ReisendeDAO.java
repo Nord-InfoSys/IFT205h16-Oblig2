@@ -95,10 +95,10 @@ public class ReisendeDAO {
             Reisende r = new Reisende();
             r.setAlder(rs.getInt("Alder"));
             // TODO betaling, gruppe og kjønn
-//            r.setBetaling();
+            
+            r.setBetaling(new Betaling(Betalingsmetode.valueOf(rs.getString("Betaling"))));
             r.setDbid(id);
-//            r.setGruppe(rs.getString("Gruppe"));
-//            r.setKjonn();
+            r.setKjonn(Kjonn.valueOf(rs.getString("Kjonn")));
             r.setNavn(rs.getString("Navn"));
             r.setPassnr(rs.getString("Passnr"));
             return r;
