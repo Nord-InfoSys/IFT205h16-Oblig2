@@ -26,7 +26,7 @@ public class FlightDAO {
             
             try {
                 MyDB db = MyDB.getInstance();
-                ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Flights"));
+                ResultSet rs = db.executeQuery("SELECT ID FROM Flights");
                 while (rs.next()) {
                     FlightDAO.getInstanceForId(rs.getInt("ID"));
                 }
