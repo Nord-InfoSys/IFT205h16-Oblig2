@@ -43,7 +43,10 @@ public class ReisendeDAO {
                 MyDB db = MyDB.getInstance();
                 ResultSet rs = db.executeQuery(String.format("SELECT ReisendeID FROM ReisendeInGruppe WHERE GruppeID = %d",g.getDbid()));
                 while (rs.next()) {
-                    g.addReisende(ReisendeDAO.getInstanceForId(rs.getInt("ReisendeID")));
+                    Reisende r = ReisendeDAO.getInstanceForId(rs.getInt("ReisendeID"));
+                    r.setGruppe(g);
+                    g.addReisende(r);
+                    
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);

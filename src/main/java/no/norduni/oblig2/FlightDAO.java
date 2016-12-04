@@ -96,7 +96,7 @@ public class FlightDAO {
  
             f.calcDuration(f.getDepartureTime(),f.getArrivalTime());
             
-            //GruppeDAO.getAllInstancesOnFlight(f);
+            GruppeDAO.getAllInstancesOnFlight(f);
             ReisendeDAO.getAllInstancesOnFlight(f);
             
             return f;
