@@ -1,4 +1,4 @@
-package no.norduni.oblig2;
+package no.norduni.oblig3;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -205,7 +205,7 @@ public class FlightListController implements Initializable {
                             public ObservableValue<String> call(TableColumn.CellDataFeatures<Flight, String> param) {
                                 Flight f = param.getValue();
                                 Duration d = f.getDuration();
-                                return new SimpleStringProperty(String.format("%02d:%02d", d.toHours(), d.toMinutes()));
+                                return new SimpleStringProperty(String.format("%02d:%02d", d.toHours(), d.toMinutes() % 60));
                             }
                         }
                     );
@@ -219,11 +219,15 @@ public class FlightListController implements Initializable {
     
     private void bootstrapModelData() {
         try {
-            this.loadFlightsFromFile();
+            this.loadDataFromSQL();
+        } catch (Exception ex) {
+            Logger.getLogger(FlightListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(!this.flighter.isEmpty()) {
             System.out.println("Åpning komplett...");
-        } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("Åpning feilet... Laster inn default data...");
+        } else {
+            System.out.println("Ingen data i liasten... Laster inn litt lekedata...");
 
             Flight flyvning = new Flight();
             flyvning.setFlightNummer("WF747");
@@ -279,6 +283,17 @@ public class FlightListController implements Initializable {
 
             flighter.add(flyvning);
 
+            
+            Flight flyvning2 = new Flight();
+            flyvning2.setFlightNummer("SK666");
+            flyvning2.setDestination("OSL");
+            flyvning2.setOrigin("BOO");
+            flyvning2.setDepartureTime(LocalDateTime.now());
+            flyvning2.setArrivalTime(LocalDateTime.now().plusMinutes(60));
+            flyvning2.setDuration(Duration.ofSeconds(3600));
+            flyvning2.setAntallPlasser(260);        
+            
+            flighter.add(flyvning2);
         }
     }
 

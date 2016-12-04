@@ -1,4 +1,4 @@
-package no.norduni.oblig2;
+package no.norduni.oblig3;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;

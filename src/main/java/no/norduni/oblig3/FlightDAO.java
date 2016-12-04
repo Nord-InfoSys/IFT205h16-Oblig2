@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.norduni.oblig2;
+package no.norduni.oblig3;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
