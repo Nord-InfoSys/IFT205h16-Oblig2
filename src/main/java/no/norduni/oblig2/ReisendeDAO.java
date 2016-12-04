@@ -25,7 +25,7 @@ public class ReisendeDAO {
             
             try {
                 MyDB db = MyDB.getInstance();
-                ResultSet rs = db.executeQuery(String.format("SELECT ReisendeID FROM ReisendeOnFligt WHERE FlightID = %d",f.getDbid()));
+                ResultSet rs = db.executeQuery(String.format("SELECT ReisendeID FROM ReisendeOnFlight WHERE FlightID = %d",f.getDbid()));
                 while (rs.next()) {
                     f.addReisende(ReisendeDAO.getInstanceForId(rs.getInt("ReisendeID")));
                 }
@@ -36,6 +36,19 @@ public class ReisendeDAO {
         
         return true;
         }
+
+        static void getAllInstancesOnGruppe(Gruppe g) throws Exception {
+            
+            try {
+                MyDB db = MyDB.getInstance();
+                ResultSet rs = db.executeQuery(String.format("SELECT ReisendeID FROM ReisendeInGruppe WHERE GruppeID = %d",g.getDbid()));
+                while (rs.next()) {
+                    g.addReisende(ReisendeDAO.getInstanceForId(rs.getInt("ReisendeID")));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ReisendeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
 
         static Reisende getInstanceForId(int id) {
         // Dersom vi allerede har instansiert et objekt for ID,
@@ -78,7 +91,7 @@ public class ReisendeDAO {
     private static Reisende get(int id) {
         try {
             MyDB db = MyDB.getInstance();
-            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Reisende WHERE id = %d",id));
+            ResultSet rs = db.executeQuery(String.format("SELECT * FROM Reisende WHERE id = %d",id));
             rs.next();
             Reisende r = new Reisende();
             r.setAlder(rs.getInt("Alder"));

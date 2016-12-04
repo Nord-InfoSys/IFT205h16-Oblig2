@@ -123,7 +123,7 @@ public class FlightListController implements Initializable {
     @FXML
     private void handleFileLoadAction(ActionEvent event) {
         try {
-            FlightDAO.getAllInstances();
+            this.loadDataFromSQL();
            // this.loadFlightsFromFile();
             System.out.println("Åpning komplett...");
         } catch (Exception e) {
@@ -297,6 +297,10 @@ public class FlightListController implements Initializable {
     @FXML
     private void magicHoverAction(MouseEvent event) {
         //this.clickMeButton.disableProperty().setValue(Boolean.TRUE);
+    }
+
+    private void loadDataFromSQL() throws Exception {
+        this.flighter.setAll(FlightDAO.getAllInstances());
     }
 
 }

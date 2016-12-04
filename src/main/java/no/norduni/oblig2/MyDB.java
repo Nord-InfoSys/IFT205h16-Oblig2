@@ -53,7 +53,7 @@ public class MyDB {
             MyDB.dbg("executeQuery: SQL: " + sql);
             Statement s = this.conn.createStatement();
             ResultSet r = s.executeQuery(sql);
-            s.close();
+            // s.close();
             return r;
         } catch (SQLException ex) {
             Logger.getLogger(MyDB.class.getName()).log(Level.SEVERE, null, ex);

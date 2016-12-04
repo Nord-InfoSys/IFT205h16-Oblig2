@@ -18,13 +18,6 @@ public class MainApp extends Application {
         MyDB foo = new MyDB();
         foo.bootStrapDB();
         
-        Reisende a = new Reisende();
-        a.setNavn("STYLESHEET_MODENA");
-        a.setBetaling(new Betaling(Betalingsmetode.CASH));
-        
-        ReisendeDAO.save(a);
-        foo.close();
-        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FlightList.fxml"));
         //Parent root = FXMLLoader.load(getClass().getResource("/fxml/FlightList.fxml"));
         

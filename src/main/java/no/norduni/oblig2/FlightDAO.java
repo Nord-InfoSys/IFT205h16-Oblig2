@@ -8,6 +8,7 @@ package no.norduni.oblig2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -22,20 +23,21 @@ public class FlightDAO {
 
     static Map<Integer, Flight> flights = new TreeMap<>();
 
-        static Boolean getAllInstances() throws Exception {
+        static List<Flight> getAllInstances() throws Exception {
+            List<Flight> liste = new ArrayList();
             
             try {
                 MyDB db = MyDB.getInstance();
                 ResultSet rs = db.executeQuery("SELECT ID FROM Flights");
                 while (rs.next()) {
-                    FlightDAO.getInstanceForId(rs.getInt("ID"));
+                    liste.add(FlightDAO.getInstanceForId(rs.getInt("ID")));
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(FlightDAO.class.getName()).log(Level.SEVERE, null, ex);
                 return null;
             }
         
-        return true;
+        return liste;
         }
 
         
@@ -48,7 +50,7 @@ public class FlightDAO {
                  f = FlightDAO.get(id);
             }
             else {
-               f = new Flight();       
+               return null;     
             }
             FlightDAO.flights.put(id, f);
         }
@@ -80,7 +82,7 @@ public class FlightDAO {
     private static Flight get(int id) throws Exception {
         try {
             MyDB db = MyDB.getInstance();
-            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Flight WHERE id = %d",id));
+            ResultSet rs = db.executeQuery(String.format("SELECT * FROM Flights WHERE id = %d",id));
             rs.next();
             
             Flight f = new Flight();

@@ -23,7 +23,22 @@ public class GruppeDAO {
 
     static Map<Integer, Gruppe> grupper = new TreeMap<>();
 
-    static Gruppe getInstanceForId(int id) {
+    static List<Gruppe> getAllInstancesForFlight(Flight f) throws Exception {
+        List<Gruppe> liste = new ArrayList();
+        try {
+            MyDB db = MyDB.getInstance();
+            ResultSet rs = db.executeQuery(String.format("SELECT GruppeID FROM GruppeOnFlight WHERE FlightID = %d",f.getDbid()));
+            while (rs.next()) {
+                liste.add(GruppeDAO.getInstanceForId(rs.getInt("GruppeID")));
+            }
+            return liste;
+        } catch (SQLException ex) {
+            Logger.getLogger(GruppeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    static Gruppe getInstanceForId(int id) throws Exception {
         if(!GruppeDAO.grupper.containsKey(id)) {
             System.out.println("Ny gruppe-instans!");
             // TODO: Prøv å hent fra SQL
@@ -33,7 +48,7 @@ public class GruppeDAO {
                  g = GruppeDAO.get(id);
              }
              else {
-                 g = new Gruppe();       
+                 return null;      
              }
              GruppeDAO.grupper.put(id, g);
         }
@@ -62,16 +77,17 @@ public class GruppeDAO {
      * @param id
      * @return 
      */
-    private static Gruppe get(int id) {
+    private static Gruppe get(int id) throws Exception {
         try {
             MyDB db = MyDB.getInstance();
-            ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Grupper WHERE id = %d",id));
+            ResultSet rs = db.executeQuery(String.format("SELECT * FROM Grupper WHERE id = %d",id));
             rs.next();
             
             Gruppe g = new Gruppe();
             g.setDbid(id);
             g.setGruppeKode(rs.getString("GruppeKode"));
-             return g;
+            ReisendeDAO.getAllInstancesOnGruppe(g);
+            return g;
         } catch (SQLException ex) {
             Logger.getLogger(GruppeDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -143,19 +159,5 @@ public class GruppeDAO {
         }
     }
     
-    static List<Gruppe> getAllInstancesForFlight(Flight f) {
-        List<Gruppe> liste = new ArrayList();
-        try {
-            MyDB db = MyDB.getInstance();
-            ResultSet rs = db.executeQuery(String.format("SELECT GruppeID FROM GruppeOnFlight WHERE FlightID = %d",f.getDbid()));
-            while (rs.next()) {
-                liste.add(GruppeDAO.get(rs.getInt("GruppeID")));
-            }
-            return liste;
-        } catch (SQLException ex) {
-            Logger.getLogger(GruppeDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
   
 }
