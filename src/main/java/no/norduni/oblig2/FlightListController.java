@@ -123,7 +123,8 @@ public class FlightListController implements Initializable {
     @FXML
     private void handleFileLoadAction(ActionEvent event) {
         try {
-            this.loadFlightsFromFile();
+            FlightDAO.getAllInstances();
+           // this.loadFlightsFromFile();
             System.out.println("Åpning komplett...");
         } catch (Exception e) {
             System.out.println(e);
