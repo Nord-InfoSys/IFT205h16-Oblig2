@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ninja.edb</groupId>
-    <artifactId>Oblig2</artifactId>
+    <artifactId>Oblig3</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>no.norduni.oblig2.MainApp</mainClass>
+        <mainClass>no.norduni.oblig3.MainApp</mainClass>
     </properties>
 
     <organization>
