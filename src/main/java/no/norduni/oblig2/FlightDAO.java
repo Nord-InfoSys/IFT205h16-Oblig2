@@ -22,11 +22,11 @@ public class FlightDAO {
 
     static Map<Integer, Flight> flights = new TreeMap<>();
 
-        static Boolean getAllInstances() {
+        static Boolean getAllInstances() throws Exception {
             
             try {
                 MyDB db = MyDB.getInstance();
-                ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Flights",id));
+                ResultSet rs = db.executeQuery(String.format("SELECT ID FROM Flights"));
                 while (rs.next()) {
                     FlightDAO.getInstanceForId(rs.getInt("ID"));
                 }
