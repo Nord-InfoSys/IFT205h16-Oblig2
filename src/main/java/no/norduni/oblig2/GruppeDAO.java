@@ -8,6 +8,7 @@ package no.norduni.oblig2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -139,6 +140,14 @@ public class GruppeDAO {
         } catch (SQLException ex) {
             Logger.getLogger(GruppeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    static List<Gruppe> getAllInstancesForFlight(Flight f) {
+        MyDB db = MyDB.getInstance();
+        db.executeQuery("SELECT ID FROM ");
+        return null;
+        
+        
     }
   
 }
